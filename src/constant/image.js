@@ -1,5 +1,5 @@
-// const markerImage = require('../assets/images/map-marker.png');
+const checkImage = require('../assets/check.png');
 
-// export const ImagesPath = {
-//   markerImage,
-// };
+export const ImagesPath = {
+  checkImage,
+};

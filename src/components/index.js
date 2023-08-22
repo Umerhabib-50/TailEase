@@ -1,6 +1,6 @@
 export * from './auth/auth-wrapper';
-export * from './button/custom-button';
-export * from './button/iconButton';
+export * from './card/button/custom-button';
+export * from './card/button/iconButton';
 export * from './text/text';
 export * from './field/text-input';
 export * from './switch/switch';
@@ -12,7 +12,6 @@ export * from './screen/wrapper';
 export * from './card/customCard';
 export * from './emptyData/customEmpty';
 export * from './date/customdate';
-export * from './employeeList/customEmployee';
 export * from './multiselect/Multiselect';
 export * from './loader/loader';
 // common

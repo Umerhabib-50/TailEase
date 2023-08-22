@@ -2,7 +2,7 @@ import {useState} from 'react';
 import {useForm} from 'react-hook-form';
 import {View} from 'react-native';
 import {COLORS} from '../../constant';
-import {CustomButton} from '../button/custom-button';
+import {CustomButton} from '../card/button/custom-button';
 import {Icon} from '../common';
 import {CustomInput} from '../field/text-input';
 import {Wrapper} from '../screen/wrapper';

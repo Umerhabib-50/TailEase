@@ -4,6 +4,7 @@ import {Controller} from 'react-hook-form';
 import {Text, TextInput} from 'react-native-paper';
 import see from '../../assets/eye.png';
 import hide from '../../assets/hide.png';
+import styles from './input.styles';
 
 export const CustomInput = ({
   control,
@@ -24,7 +25,7 @@ export const CustomInput = ({
           rules={{
             required: true,
             minLength:
-              name == 'phone'
+              name == 'phoneNo'
                 ? {
                     value: 11,
                     message: 'PHone number must have at 11 digits',
@@ -36,12 +37,13 @@ export const CustomInput = ({
               <View>
                 <TextInput
                   keyboardType={keyboardType}
+                  style={styles.textInputView}
                   label={label}
                   value={value}
                   onChangeText={onChange}
                   mode="outlined"
                   activeOutlineColor="green"
-                  maxLength={name == 'phone' ? 11 : null}
+                  maxLength={name == 'phoneNo' ? 11 : null}
                   secureTextEntry={show}
                   right={
                     password ? (

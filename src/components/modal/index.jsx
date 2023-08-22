@@ -6,7 +6,7 @@ import {useNavigation} from '@react-navigation/native';
 // icons
 
 import {Text} from '../text/text';
-import {CustomButton} from '../button/custom-button';
+import {CustomButton} from '../card/button/custom-button';
 import {Icon} from '../common/icon';
 import {Modal, TouchableRipple} from 'react-native-paper';
 import {COLORS} from '../../constant';
