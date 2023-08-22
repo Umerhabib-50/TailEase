@@ -5,6 +5,7 @@ import {Text, TextInput} from 'react-native-paper';
 import see from '../../assets/eye.png';
 import hide from '../../assets/hide.png';
 import styles from './input.styles';
+import {COLORS} from '../../constant';
 
 export const CustomInput = ({
   control,
@@ -42,7 +43,7 @@ export const CustomInput = ({
                   value={value}
                   onChangeText={onChange}
                   mode="outlined"
-                  activeOutlineColor="green"
+                  activeOutlineColor={COLORS.purple}
                   maxLength={name == 'phoneNo' ? 11 : null}
                   secureTextEntry={show}
                   right={

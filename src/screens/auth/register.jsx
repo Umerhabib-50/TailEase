@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {ScrollView, View} from 'react-native';
 import {CustomButton, CustomInput, Text} from '../../components';
 import {TouchableRipple} from 'react-native-paper';
@@ -13,10 +13,16 @@ export const RegisterScreen = ({navigation}) => {
     formState: {errors},
   } = useForm();
   const dispatch = useDispatch();
-  const {loading} = useSelector(state => state?.userRegister);
+  const {loading, error} = useSelector(state => state?.userRegister);
+  console.log('error', error);
   const onSubmit = data => {
     dispatch(userRegisterAction(data, navigation));
   };
+  useEffect(() => {
+    return () => {
+      dispatch({type: 'CLEAR_ERROR'});
+    };
+  }, []);
   return (
     <ScrollView
       contentContainerStyle={{
@@ -52,7 +58,11 @@ export const RegisterScreen = ({navigation}) => {
             label="Password"
             name="password"
           />
-
+          {error && (
+            <Text color="red" style={{textAlign: 'center'}}>
+              Wrong Credentials
+            </Text>
+          )}
           <CustomButton
             title={loading ? 'loading...' : 'Sign Up'}
             style={{marginTop: '8%'}}
@@ -60,7 +70,7 @@ export const RegisterScreen = ({navigation}) => {
           />
         </View>
         <View style={AuthStyle.bottom}>
-          <Text>Don't have an account?</Text>
+          <Text>Have an account?</Text>
           <TouchableRipple onPress={() => navigation.navigate('login')}>
             <Text fontWeight="bold" variant="bodyMedium">
               Sign IN

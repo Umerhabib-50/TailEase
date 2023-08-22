@@ -1,5 +1,5 @@
-import React from 'react';
-import {Image, Keyboard, View} from 'react-native';
+import React, {useEffect} from 'react';
+import {Image, View} from 'react-native';
 import {CustomButton, CustomInput, Text} from '../../components';
 import {ImagesPath} from '../../constant';
 import {TextInput, TouchableRipple} from 'react-native-paper';
@@ -17,9 +17,13 @@ export const LoginScreen = ({navigation}) => {
   const {error, loading} = useSelector(state => state?.userLogin);
 
   const loginSubmit = data => {
-    Keyboard.dismiss();
-    dispatch(userLoginAction(data, navigation));
+    dispatch(userLoginAction(data));
   };
+  useEffect(() => {
+    return () => {
+      dispatch({type: 'CLEAR_ERROR'});
+    };
+  }, []);
   return (
     <View style={AuthStyle.container}>
       <View>
@@ -45,7 +49,11 @@ export const LoginScreen = ({navigation}) => {
           label="Password"
           name="password"
         />
-
+        {error && (
+          <Text color="red" style={{textAlign: 'center'}}>
+            Wrong Credentials
+          </Text>
+        )}
         <View style={AuthStyle.forgot}>
           <View style={AuthStyle.check}>
             <Image
@@ -58,8 +66,9 @@ export const LoginScreen = ({navigation}) => {
             <Text>Forgot password?</Text>
           </TouchableRipple>
         </View>
+
         <CustomButton
-          title="Sign In"
+          title={loading ? 'loading...' : 'Sign In'}
           style={{marginTop: '8%'}}
           onPress={handleSubmit(loginSubmit)}
         />

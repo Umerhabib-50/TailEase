@@ -31,7 +31,7 @@ export const userRegisterAction =
     }
   };
 //USER LOGIN
-export const userLoginAction = (loginData, navigation) => async dispatch => {
+export const userLoginAction = loginData => async dispatch => {
   try {
     dispatch({
       type: USER_LOGIN_REQUEST,
@@ -40,13 +40,12 @@ export const userLoginAction = (loginData, navigation) => async dispatch => {
       `http://192.168.1.215:5000/user/login`,
       loginData,
     );
-    // data?.loginData && navigation.navigate('home');
+    // data?.message && navigation.navigate('mainStack', {screen: 'home'});
     dispatch({
       type: USER_LOGIN_SUCCESS,
       payload: data,
     });
   } catch (error) {
-    console.log(error);
     dispatch({
       type: USER_LOGIN_FAIL,
       payload: error?.response && error?.response?.data,
