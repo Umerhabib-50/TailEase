@@ -29,7 +29,7 @@ export const CustomInput = ({
               name == 'phoneNo'
                 ? {
                     value: 11,
-                    message: 'PHone number must have at 11 digits',
+                    message: 'Phone number must have at 11 digits',
                   }
                 : null,
           }}

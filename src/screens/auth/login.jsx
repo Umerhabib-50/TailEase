@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import {Image, View} from 'react-native';
 import {CustomButton, CustomInput, Text} from '../../components';
 import {ImagesPath} from '../../constant';
-import {TextInput, TouchableRipple} from 'react-native-paper';
+import {TouchableRipple} from 'react-native-paper';
 import {AuthStyle} from './authStyle.style';
 import {useForm} from 'react-hook-form';
 import {useDispatch, useSelector} from 'react-redux';
@@ -11,6 +11,7 @@ export const LoginScreen = ({navigation}) => {
   const {
     control,
     handleSubmit,
+    reset,
     formState: {errors},
   } = useForm();
   const dispatch = useDispatch();
@@ -21,6 +22,7 @@ export const LoginScreen = ({navigation}) => {
   };
   useEffect(() => {
     return () => {
+      reset();
       dispatch({type: 'CLEAR_ERROR'});
     };
   }, []);
@@ -41,6 +43,7 @@ export const LoginScreen = ({navigation}) => {
           errors={errors}
           label="Phone"
           name="phoneNo"
+          keyboardType={'numeric'}
         />
         <CustomInput
           password

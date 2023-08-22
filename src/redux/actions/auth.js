@@ -7,6 +7,7 @@ import {
   USER_REGISTER_REQUEST,
   USER_REGISTER_SUCCESS,
 } from '../constants';
+import {SERVER_IP} from '../../config';
 //USER REGISTER
 export const userRegisterAction =
   (register_data, navigation) => async dispatch => {
@@ -15,7 +16,7 @@ export const userRegisterAction =
         type: USER_REGISTER_REQUEST,
       });
       const {data} = await axios.post(
-        `http://192.168.1.215:5000/user/register`,
+        `${SERVER_IP}/user/register`,
         register_data,
       );
       data?.message && navigation.navigate('login');
@@ -36,10 +37,7 @@ export const userLoginAction = loginData => async dispatch => {
     dispatch({
       type: USER_LOGIN_REQUEST,
     });
-    const {data} = await axios.post(
-      `http://192.168.1.215:5000/user/login`,
-      loginData,
-    );
+    const {data} = await axios.post(`${SERVER_IP}/user/login`, loginData);
     // data?.message && navigation.navigate('mainStack', {screen: 'home'});
     dispatch({
       type: USER_LOGIN_SUCCESS,

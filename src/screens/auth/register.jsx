@@ -10,16 +10,18 @@ export const RegisterScreen = ({navigation}) => {
   const {
     control,
     handleSubmit,
+    reset,
     formState: {errors},
   } = useForm();
   const dispatch = useDispatch();
   const {loading, error} = useSelector(state => state?.userRegister);
-  console.log('error', error);
+
   const onSubmit = data => {
     dispatch(userRegisterAction(data, navigation));
   };
   useEffect(() => {
     return () => {
+      reset();
       dispatch({type: 'CLEAR_ERROR'});
     };
   }, []);
@@ -50,6 +52,7 @@ export const RegisterScreen = ({navigation}) => {
             errors={errors}
             label="Phone"
             name="phoneNo"
+            keyboardType={'numeric'}
           />
           <CustomInput
             password
@@ -60,7 +63,7 @@ export const RegisterScreen = ({navigation}) => {
           />
           {error && (
             <Text color="red" style={{textAlign: 'center'}}>
-              Wrong Credentials
+              {error.error}
             </Text>
           )}
           <CustomButton
