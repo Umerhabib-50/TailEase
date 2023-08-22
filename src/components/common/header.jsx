@@ -2,7 +2,7 @@ import React from 'react';
 import {TouchableOpacity, View} from 'react-native';
 
 // import BackIcon from '../../../assets/logo/left-vector.svg';
-import {CustomButton} from '../button/custom-button';
+import {CustomButton} from '../card/button/custom-button';
 import {Text} from '../text/text';
 import {COLORS} from '../../constant';
 import {Appbar} from 'react-native-paper';

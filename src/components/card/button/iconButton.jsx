@@ -1,6 +1,6 @@
 import React from 'react';
 import {IconButton} from 'react-native-paper';
-import {Icon} from '../common';
+import {Icon} from '../../common';
 
 export const IconBtn = ({name = '', size = '20', onPress, color}) => {
   return (

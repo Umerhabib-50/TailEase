@@ -1,15 +1,15 @@
 import React from 'react';
 import {Button} from 'react-native-paper';
-import {COLORS} from '../../constant';
-import {Icon} from '../common';
-import {Text} from '../text/text';
+import {COLORS} from '../../../constant';
+import {Icon} from '../../common';
+import {Text} from '../../text/text';
 
 export const CustomButton = ({
   style,
   iconName,
   iconSize,
   mode = 'contained',
-  color = COLORS.primary,
+  color = COLORS.purple,
   textColor = COLORS.white,
   onPress,
   loading,

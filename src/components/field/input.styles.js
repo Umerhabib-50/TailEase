@@ -3,7 +3,8 @@ import {COLORS} from '../../constant';
 
 export default StyleSheet.create({
   textInputView: {
-    marginVertical: 10,
+    marginVertical: 4,
+    backgroundColor: '#f5f5f5',
   },
 });
 
