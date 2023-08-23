@@ -5,7 +5,9 @@ export const HomeStyle = StyleSheet.create({
   container: {
     flex: 1,
     // alignItems: 'center',
-    padding: '7%',
+    // padding: '7%',
+    paddingHorizontal: '7%',
+    paddingTop: '7%',
   },
   cardTop: {
     backgroundColor: COLORS.purple,

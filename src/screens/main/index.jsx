@@ -1,5 +1,5 @@
 import React from 'react';
-import {FlatList, Image, ScrollView, View} from 'react-native';
+import {FlatList, Image, View} from 'react-native';
 import {CustomButton, CustomCard, Text} from '../../components';
 import {COLORS, ImagesPath} from '../../constant';
 import {dcList, service} from '../../json';
