@@ -14,7 +14,7 @@ export const RegisterScreen = ({navigation}) => {
   } = useForm();
   const dispatch = useDispatch();
   const {loading, error} = useSelector(state => state?.userRegister);
-  console.log('error', error);
+
   const onSubmit = data => {
     dispatch(userRegisterAction(data, navigation));
   };
