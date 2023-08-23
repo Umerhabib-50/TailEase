@@ -4,4 +4,4 @@ export * from '../screens/auth/register';
 export * from '../screens/auth/forgot';
 
 //HOME SCREENS
-export * from './main/home';
+export * from './main';
