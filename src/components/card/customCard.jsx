@@ -11,10 +11,10 @@ export const CustomCard = ({title, description}) => {
   // const [show, setShow] = useState(false);
   return (
     <TouchableRipple>
-      <Card style={{marginTop: 9, padding: 10}}>
+      <Card style={CustomCardStyle.card}>
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
           <View style={CustomCardStyle.dcImage}>
-            <Image source={ImagesPath.vet} style={{width: 60, height: 60}} />
+            <Image source={ImagesPath.vet} style={{width: 45, height: 45}} />
           </View>
 
           <View style={{marginLeft: 25, flex: 1}}>

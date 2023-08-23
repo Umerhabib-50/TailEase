@@ -11,7 +11,7 @@ export const MainNavigator = () => {
     <MainStack.Navigator
       screenOptions={{
         headerShown: false,
-        contentStyle: {backgroundColor: 'white'},
+        // contentStyle: {backgroundColor: ''},
       }}>
       <MainStack.Screen name="home" component={HomeScreen} />
     </MainStack.Navigator>

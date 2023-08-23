@@ -1,26 +1,14 @@
 import React from 'react';
-import {FlatList, Image, View} from 'react-native';
+import {FlatList, Image, ScrollView, View} from 'react-native';
 import {CustomButton, CustomCard, Text} from '../../components';
 import {COLORS, ImagesPath} from '../../constant';
 import {dcList, service} from '../../json';
-
+import {HomeStyle} from './homeStyle/home.style';
 export const HomeScreen = () => {
   return (
     <>
-      <View
-        style={{
-          flex: 1,
-          alignItems: 'center',
-          padding: '7%',
-        }}>
-        <View
-          style={{
-            backgroundColor: COLORS.purple,
-            height: '25%', // Adjust the height as needed
-            borderRadius: 20,
-            flexDirection: 'row',
-            padding: 20,
-          }}>
+      <View style={HomeStyle.container}>
+        <View style={HomeStyle.cardTop}>
           <View style={{flex: 1}}>
             <Text color={COLORS.white}>
               Street animals need our protection, help them today
@@ -44,31 +32,12 @@ export const HomeScreen = () => {
           <Text variant="titleMedium" fontWeight="bold">
             Services
           </Text>
-          <View
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              marginTop: '4%',
-              justifyContent: 'space-between',
-            }}>
+          <View style={HomeStyle.serviceSection}>
             {service.map((item, ind) => {
               const {image, title} = item;
               return (
-                <View
-                  key={ind}
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    marginRight: '3%',
-                  }}>
-                  <View
-                    style={{
-                      backgroundColor: COLORS.lightPurple,
-                      alignItems: 'center',
-                      width: 50,
-                      height: 45,
-                      borderRadius: 9,
-                    }}>
+                <View key={ind} style={HomeStyle.mapTop}>
+                  <View style={HomeStyle.mapImage}>
                     <Image
                       source={image}
                       style={{width: 30, height: 30, marginTop: '14%'}}
@@ -83,21 +52,19 @@ export const HomeScreen = () => {
             })}
           </View>
         </View>
-        <View style={{marginTop: '10%', width: '100%'}}>
+        <View style={{marginTop: '10%', flex: 1}}>
           <Text variant="titleMedium" fontWeight="bold">
             Nearby Veterinary
           </Text>
-
-          <View style={{display: 'flex'}}>
-            <FlatList
-              data={dcList}
-              keyExtractor={(item, index) => index.toString()}
-              renderItem={({item}) => (
-                <CustomCard title={item.title} description={item.address} />
-              )}
-              style={{marginTop: 6}}
-            />
-          </View>
+          <FlatList
+            showsVerticalScrollIndicator={false}
+            data={dcList}
+            keyExtractor={(item, index) => index.toString()}
+            renderItem={({item}) => (
+              <CustomCard title={item.title} description={item.address} />
+            )}
+            style={{marginTop: 6}}
+          />
         </View>
       </View>
     </>
