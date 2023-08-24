@@ -13,6 +13,10 @@ const msgFill = require('../assets/msg.png');
 const msgOut = require('../assets/msgOut.png');
 const userFill = require('../assets/user.png');
 const userOut = require('../assets/userOut.png');
+const profileImg = require('../assets/profile.jpg');
+const changePassword = require('../assets/padlock.png');
+const signOut = require('../assets/switch.png');
+
 export const ImagesPath = {
   checkImage,
   homeImage,
@@ -29,4 +33,7 @@ export const ImagesPath = {
   msgOut,
   userFill,
   userOut,
+  profileImg,
+  signOut,
+  changePassword,
 };

@@ -5,9 +5,9 @@ export const Text = ({
   title,
   children,
   style,
-  variant,
-  fontWeight,
-  color,
+  variant = 'bodyMedium',
+  fontWeight = 'normal',
+  color = 'black',
   ...rest
 }) => {
   // figure out which content to use
@@ -19,8 +19,8 @@ export const Text = ({
       style={[
         style,
         {
-          color: color ? color : 'black',
-          fontWeight: fontWeight ? fontWeight : 'normal', // Default to normal if fontWeight prop is not provided
+          color: color,
+          fontWeight: fontWeight, // Default to normal if fontWeight prop is not provided
         },
       ]}
       variant={variant}>

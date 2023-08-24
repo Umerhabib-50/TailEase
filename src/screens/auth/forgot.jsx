@@ -3,7 +3,7 @@ import {View} from 'react-native';
 import {CustomInput, Text} from '../../components';
 import {useForm} from 'react-hook-form';
 
-export const ForgotScreen = ({navigation}) => {
+const ForgetScreen = ({navigation}) => {
   const {
     control,
     handleSubmit,
@@ -20,3 +20,5 @@ export const ForgotScreen = ({navigation}) => {
     </View>
   );
 };
+
+export default ForgetScreen;

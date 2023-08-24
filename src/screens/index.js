@@ -1,11 +1,20 @@
 //AUTH SCREENS
-export * from '../screens/auth/login';
-export * from '../screens/auth/register';
-export * from '../screens/auth/forgot';
+import LoginScreen from './auth/login';
+import RegisterScreen from './auth/register';
+import ForgetScreen from './auth/forgot';
 
 //HOME SCREENS
-export * from './main/homeScreens';
-export * from './main/homeScreens/details';
-//
+
+import WildLifeDetailsScreen from './home/wildLifeDetails';
+import HomeScreen from './home';
 //PROFILE SCREENS
-export * from './main/profileScreens';
+// import UserProfileScreen from './settings';
+import UserProfileScreen from './settings';
+export {
+  LoginScreen,
+  RegisterScreen,
+  ForgetScreen,
+  HomeScreen,
+  WildLifeDetailsScreen,
+  UserProfileScreen,
+};

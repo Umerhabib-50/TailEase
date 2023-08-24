@@ -1,6 +1,7 @@
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {DetailsScreen, HomeScreen} from '../screens';
+import {HomeScreen, WildLifeDetailsScreen} from '../screens';
+
 const HomeStack = createNativeStackNavigator();
 
 export const HomeNavigator = () => {
@@ -10,7 +11,10 @@ export const HomeNavigator = () => {
         headerShown: false,
       }}>
       <HomeStack.Screen name="homeScreen" component={HomeScreen} />
-      <HomeStack.Screen name="detail" component={DetailsScreen} />
+      <HomeStack.Screen
+        name="wildLifeDetails"
+        component={WildLifeDetailsScreen}
+      />
     </HomeStack.Navigator>
   );
 };

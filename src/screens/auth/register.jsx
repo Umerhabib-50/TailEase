@@ -6,7 +6,7 @@ import {AuthStyle} from './authStyle.style';
 import {useForm} from 'react-hook-form';
 import {useDispatch, useSelector} from 'react-redux';
 import {userRegisterAction} from '../../redux';
-export const RegisterScreen = ({navigation}) => {
+const RegisterScreen = ({navigation}) => {
   const {
     control,
     handleSubmit,
@@ -84,3 +84,5 @@ export const RegisterScreen = ({navigation}) => {
     </ScrollView>
   );
 };
+
+export default RegisterScreen;

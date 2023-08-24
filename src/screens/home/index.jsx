@@ -1,10 +1,11 @@
 import React from 'react';
 import {FlatList, Image, View} from 'react-native';
-import {COLORS, ImagesPath} from '../../../constant';
-import {dcList, service} from '../../../json';
-import {HomeStyle} from '../homeStyle/home.style';
-import {CustomButton, CustomCard, Text} from '../../../components';
-export const HomeScreen = ({navigation}) => {
+import {COLORS, ImagesPath} from '../../constant';
+import {dcList, service} from '../../json';
+import {HomeStyle} from './home.style';
+import {CustomButton, CustomCard, Text} from '../../components';
+
+const HomeScreen = ({navigation}) => {
   return (
     <>
       <View style={HomeStyle.container}>
@@ -65,7 +66,9 @@ export const HomeScreen = ({navigation}) => {
                 <CustomCard
                   title={item.title}
                   description={item.address}
-                  onNavigatePress={() => navigation.navigate('detail', {item})}
+                  onNavigatePress={() =>
+                    navigation.navigate('wildLifeDetails', {item})
+                  }
                 />
               );
             }}
@@ -76,3 +79,5 @@ export const HomeScreen = ({navigation}) => {
     </>
   );
 };
+
+export default HomeScreen;

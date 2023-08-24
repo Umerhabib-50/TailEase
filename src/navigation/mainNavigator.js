@@ -49,15 +49,13 @@ export const MainNavigator = () => {
           if (rn === homeName) {
             iconName = focused ? ImagesPath.homeFill : ImagesPath.homeOut;
             label = 'home';
-          }
-          // else if (rn === detailsName) {
-          //   iconName = focused ? ImagesPath.love : ImagesPath.loveOut;
-          //   label = 'details';
-          // } else if (rn === settingsName) {
-          //   iconName = focused ? ImagesPath.msgFill : ImagesPath.msgOut;
-          //   label = 'setting';
-          // }
-          else if (rn === profileName) {
+          } else if (rn === detailsName) {
+            iconName = focused ? ImagesPath.love : ImagesPath.loveOut;
+            label = 'details';
+          } else if (rn === settingsName) {
+            iconName = focused ? ImagesPath.msgFill : ImagesPath.msgOut;
+            label = 'setting';
+          } else if (rn === profileName) {
             iconName = focused ? ImagesPath.userFill : ImagesPath.userOut;
             label = 'profile';
           }
@@ -75,8 +73,8 @@ export const MainNavigator = () => {
         tabBarLabel: '',
       })}>
       <MainStack.Screen name={homeName} component={HomeNavigator} />
-      {/* <MainStack.Screen name={detailsName} component={DetailsScreen} />
-      <MainStack.Screen name={settingsName} component={SettingScreen} /> */}
+      <MainStack.Screen name={detailsName} component={ProfileNavigator} />
+      <MainStack.Screen name={settingsName} component={HomeNavigator} />
       <MainStack.Screen name={profileName} component={ProfileNavigator} />
     </MainStack.Navigator>
   );

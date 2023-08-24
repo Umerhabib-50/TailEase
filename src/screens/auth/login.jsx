@@ -7,7 +7,8 @@ import {AuthStyle} from './authStyle.style';
 import {useForm} from 'react-hook-form';
 import {useDispatch, useSelector} from 'react-redux';
 import {userLoginAction} from '../../redux';
-export const LoginScreen = ({navigation}) => {
+
+const LoginScreen = ({navigation}) => {
   const {
     control,
     handleSubmit,
@@ -18,6 +19,7 @@ export const LoginScreen = ({navigation}) => {
   const {error, loading} = useSelector(state => state?.userLogin);
 
   const loginSubmit = data => {
+    console.log('hello');
     dispatch(userLoginAction(data));
   };
   useEffect(() => {
@@ -87,3 +89,5 @@ export const LoginScreen = ({navigation}) => {
     </View>
   );
 };
+
+export default LoginScreen;

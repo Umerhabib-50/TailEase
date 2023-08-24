@@ -48,3 +48,7 @@ export const dcList = [
     latitude: 31.522781477385738,
   },
 ];
+export const accout = [
+  {image: ImagesPath.changePassword, title: 'Change Password'},
+  {image: ImagesPath.signOut, title: 'Sign Out'},
+];

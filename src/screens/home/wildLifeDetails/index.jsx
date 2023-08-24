@@ -1,14 +1,13 @@
 import React, {useState} from 'react';
-import {Image, View, ScrollView, TouchableOpacity, Linking} from 'react-native';
-import {ReportDetailStyle} from '../homeStyle/report_Details.style';
-import {Text} from 'react-native-paper';
-import {COLORS} from '../../../constant';
-import {CustomButton, Header} from '../../../components';
+import {Image, View, ScrollView, TouchableOpacity} from 'react-native';
 import leftArrow from '../../../assets/left-arrow.png';
 import MapView from 'react-native-maps';
 import {Marker} from 'react-native-maps';
+import {WildLifeStyles} from './wildLife.style';
+import {CustomButton, Header, Text} from '../../../components';
+import {COLORS} from '../../../constant';
 
-export const DetailsScreen = ({navigation, route}) => {
+const WildLifeDetailsScreen = ({navigation, route}) => {
   const {item} = route.params;
   const {longitude, latitude} = item;
   const arr = [1, 2, 3];
@@ -26,37 +25,37 @@ export const DetailsScreen = ({navigation, route}) => {
   };
 
   return (
-    <View style={ReportDetailStyle.container}>
-      <View style={ReportDetailStyle.image_sec}>
+    <View style={WildLifeStyles.container}>
+      <View style={WildLifeStyles.image_sec}>
         <Header img={leftArrow} navigation={navigation} />
-        <View style={ReportDetailStyle.img_con}>
+        <View style={WildLifeStyles.img_con}>
           <Image
-            style={ReportDetailStyle.dic_img}
+            style={WildLifeStyles.dic_img}
             source={require('../../../assets/doc.jpg')}
           />
         </View>
       </View>
-      <View style={ReportDetailStyle.white_sec_con}>
+      <View style={WildLifeStyles.white_sec_con}>
         <ScrollView
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{paddingBottom: 10}}>
-          <View style={ReportDetailStyle.name_verify_con}>
+          <View style={WildLifeStyles.name_verify_con}>
             <Text variant="headlineSmall">Umer Habib</Text>
-            <View style={ReportDetailStyle.verify}>
+            <View style={WildLifeStyles.verify}>
               <Text variant="labelMedium" style={{color: 'green'}}>
                 Verified
               </Text>
             </View>
           </View>
-          <View style={ReportDetailStyle.card_con}>
+          <View style={WildLifeStyles.card_con}>
             {arr.map((item, index) => (
-              <View style={ReportDetailStyle.card} key={index}>
+              <View style={WildLifeStyles.card} key={index}>
                 <Text style={{color: COLORS.purple}}>Distance</Text>
                 <Text style={{fontSize: 18}}>10 km</Text>
               </View>
             ))}
           </View>
-          <View style={ReportDetailStyle.disc_con}>
+          <View style={WildLifeStyles.disc_con}>
             <Text style={{fontWeight: 'bold', fontSize: 18}}>Description</Text>
             <View style={{flexDirection: 'row', paddingVertical: 10}}>
               <Text style={{lineHeight: 25}}>
@@ -81,17 +80,22 @@ export const DetailsScreen = ({navigation, route}) => {
           </View>
           <MapView
             scrollEnabled={false}
-            style={ReportDetailStyle.map}
+            zoomEnabled={false}
+            style={WildLifeStyles.map}
             initialRegion={{
               latitude,
               longitude,
               latitudeDelta: 0.005,
               longitudeDelta: 0.005,
             }}>
-            <Marker coordinate={markerCoordinate} pinColor={COLORS.purple} />
+            <Marker
+              coordinate={markerCoordinate}
+              tracksViewChanges={false}
+              pinColor={COLORS.purple}
+            />
           </MapView>
 
-          {/* <View style={ReportDetailStyle.map}>
+          {/* <View style={WildLifeStyles.map}>
             <Text>MAP</Text>
           </View> */}
           <CustomButton
@@ -110,3 +114,5 @@ export const DetailsScreen = ({navigation, route}) => {
     </View>
   );
 };
+
+export default WildLifeDetailsScreen;

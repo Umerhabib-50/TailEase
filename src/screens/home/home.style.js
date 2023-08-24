@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {COLORS} from '../../../constant';
+import {COLORS} from '../../constant';
 
 export const HomeStyle = StyleSheet.create({
   container: {
@@ -7,7 +7,7 @@ export const HomeStyle = StyleSheet.create({
     // alignItems: 'center',
     // padding: '7%',
     paddingHorizontal: '7%',
-    paddingTop: '7%',
+    paddingTop: '14%',
   },
   cardTop: {
     backgroundColor: COLORS.purple,

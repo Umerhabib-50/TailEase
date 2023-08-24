@@ -1,8 +1,7 @@
 import {StyleSheet} from 'react-native';
 import {COLORS} from '../../../constant';
-import {Colors} from 'react-native/Libraries/NewAppScreen';
 
-export const ReportDetailStyle = StyleSheet.create({
+export const WildLifeStyles = StyleSheet.create({
   container: {
     flex: 1,
     // backgroundColor: COLORS.linearPurple,
