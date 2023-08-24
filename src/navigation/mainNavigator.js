@@ -1,11 +1,10 @@
 import React from 'react';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {HomeScreen} from '../screens/main';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {Image, View} from 'react-native';
 import {COLORS, ImagesPath} from '../constant';
-import {DetailsScreen, SettingScreen} from '../screens';
 import {Text} from '../components';
+import {HomeNavigator} from './homeNavigator';
+import {ProfileNavigator} from './profileNavigator';
 
 // import all screens here
 const CustomTabBarButton = ({focused, iconName, label}) => (
@@ -50,13 +49,15 @@ export const MainNavigator = () => {
           if (rn === homeName) {
             iconName = focused ? ImagesPath.homeFill : ImagesPath.homeOut;
             label = 'home';
-          } else if (rn === detailsName) {
-            iconName = focused ? ImagesPath.love : ImagesPath.loveOut;
-            label = 'details';
-          } else if (rn === settingsName) {
-            iconName = focused ? ImagesPath.msgFill : ImagesPath.msgOut;
-            label = 'setting';
-          } else if (rn === profileName) {
+          }
+          // else if (rn === detailsName) {
+          //   iconName = focused ? ImagesPath.love : ImagesPath.loveOut;
+          //   label = 'details';
+          // } else if (rn === settingsName) {
+          //   iconName = focused ? ImagesPath.msgFill : ImagesPath.msgOut;
+          //   label = 'setting';
+          // }
+          else if (rn === profileName) {
             iconName = focused ? ImagesPath.userFill : ImagesPath.userOut;
             label = 'profile';
           }
@@ -73,10 +74,10 @@ export const MainNavigator = () => {
         headerShown: false,
         tabBarLabel: '',
       })}>
-      <MainStack.Screen name={homeName} component={HomeScreen} />
-      <MainStack.Screen name={detailsName} component={DetailsScreen} />
-      <MainStack.Screen name={settingsName} component={SettingScreen} />
-      <MainStack.Screen name={profileName} component={HomeScreen} />
+      <MainStack.Screen name={homeName} component={HomeNavigator} />
+      {/* <MainStack.Screen name={detailsName} component={DetailsScreen} />
+      <MainStack.Screen name={settingsName} component={SettingScreen} /> */}
+      <MainStack.Screen name={profileName} component={ProfileNavigator} />
     </MainStack.Navigator>
   );
 };

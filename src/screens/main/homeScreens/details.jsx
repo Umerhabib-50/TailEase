@@ -1,11 +1,16 @@
 import React, {useState} from 'react';
-import {Image, View, ScrollView, TouchableOpacity} from 'react-native';
-import {ReportDetailStyle} from './homeStyle/report_Details.style';
+import {Image, View, ScrollView, TouchableOpacity, Linking} from 'react-native';
+import {ReportDetailStyle} from '../homeStyle/report_Details.style';
 import {Text} from 'react-native-paper';
-import {COLORS} from '../../constant';
-import {CustomButton} from '../../components';
+import {COLORS} from '../../../constant';
+import {CustomButton, Header} from '../../../components';
+import leftArrow from '../../../assets/left-arrow.png';
+import MapView from 'react-native-maps';
+import {Marker} from 'react-native-maps';
 
-export const DetailsScreen = () => {
+export const DetailsScreen = ({navigation, route}) => {
+  const {item} = route.params;
+  const {longitude, latitude} = item;
   const arr = [1, 2, 3];
   const text =
     'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Mollitia amet, quasi saepe sint nihil incidunt consequatur adipisci cum temporibus reiciendis inventore est magni, harum, eius corruptineque id dolorum vitae.';
@@ -15,14 +20,21 @@ export const DetailsScreen = () => {
   const toggleTextExpansion = () => {
     setIsExpanded(!isExpanded);
   };
+  const markerCoordinate = {
+    latitude,
+    longitude,
+  };
 
   return (
     <View style={ReportDetailStyle.container}>
       <View style={ReportDetailStyle.image_sec}>
-        <Image
-          style={ReportDetailStyle.dic_img}
-          source={require('../../assets/doc.png')}
-        />
+        <Header img={leftArrow} navigation={navigation} />
+        <View style={ReportDetailStyle.img_con}>
+          <Image
+            style={ReportDetailStyle.dic_img}
+            source={require('../../../assets/doc.jpg')}
+          />
+        </View>
       </View>
       <View style={ReportDetailStyle.white_sec_con}>
         <ScrollView
@@ -36,7 +48,6 @@ export const DetailsScreen = () => {
               </Text>
             </View>
           </View>
-
           <View style={ReportDetailStyle.card_con}>
             {arr.map((item, index) => (
               <View style={ReportDetailStyle.card} key={index}>
@@ -45,7 +56,6 @@ export const DetailsScreen = () => {
               </View>
             ))}
           </View>
-
           <View style={ReportDetailStyle.disc_con}>
             <Text style={{fontWeight: 'bold', fontSize: 18}}>Description</Text>
             <View style={{flexDirection: 'row', paddingVertical: 10}}>
@@ -69,11 +79,32 @@ export const DetailsScreen = () => {
               </Text>
             </View>
           </View>
+          <MapView
+            scrollEnabled={false}
+            style={ReportDetailStyle.map}
+            initialRegion={{
+              latitude,
+              longitude,
+              latitudeDelta: 0.005,
+              longitudeDelta: 0.005,
+            }}>
+            <Marker coordinate={markerCoordinate} pinColor={COLORS.purple} />
+          </MapView>
 
-          <View style={ReportDetailStyle.map}>
+          {/* <View style={ReportDetailStyle.map}>
             <Text>MAP</Text>
-          </View>
-          <CustomButton style={{marginTop: 20}} title={'Go To Maps'} />
+          </View> */}
+          <CustomButton
+            // onPress={() => {
+            //   const url = `https://www.google.com/maps/dir/?api=1&destination=${latitude},${longitude}`;
+
+            //   Linking.openURL(url).catch(err =>
+            //     console.error('Error opening Google Maps:', err),
+            //   );
+            // }}
+            style={{marginTop: 20}}
+            title={'Go To Maps'}
+          />
         </ScrollView>
       </View>
     </View>

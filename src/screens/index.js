@@ -4,6 +4,8 @@ export * from '../screens/auth/register';
 export * from '../screens/auth/forgot';
 
 //HOME SCREENS
-export * from './main';
-export * from './main/details';
-export * from './main/setting';
+export * from './main/homeScreens';
+export * from './main/homeScreens/details';
+//
+//PROFILE SCREENS
+export * from './main/profileScreens';

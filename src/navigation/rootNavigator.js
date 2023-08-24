@@ -9,15 +9,16 @@ const RootStack = createNativeStackNavigator();
 
 const RootStackContainer = () => {
   const data = useSelector(state => state?.userLogin?.userLogin);
-  const token = data?.token;
+  // const token = data?.token;
+  const token = true;
   return (
     <RootStack.Navigator name="root" screenOptions={{headerShown: false}}>
-      <RootStack.Screen name="mainStack" component={MainNavigator} />
-      {/* {token ? (
+      {/* <RootStack.Screen name="mainStack" component={MainNavigator} /> */}
+      {token ? (
         <RootStack.Screen name="mainStack" component={MainNavigator} />
       ) : (
         <RootStack.Screen name="authStack" component={AuthNavigator} />
-      )} */}
+      )}
     </RootStack.Navigator>
   );
 };

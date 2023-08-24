@@ -7,7 +7,7 @@ import {Icon, Text, Wrapper} from '../../components';
 import {Background} from 'victory-native';
 import {COLORS, ImagesPath} from '../../constant';
 
-export const CustomCard = ({title, description}) => {
+export const CustomCard = ({title, description, onNavigatePress}) => {
   // const [show, setShow] = useState(false);
   return (
     <TouchableRipple>
@@ -32,10 +32,12 @@ export const CustomCard = ({title, description}) => {
             </View>
           </View>
           <View style={CustomCardStyle.arrow}>
-            <Image
-              source={ImagesPath.nextArrow}
-              style={{height: 23, width: 23}}
-            />
+            <TouchableRipple onPress={onNavigatePress}>
+              <Image
+                source={ImagesPath.nextArrow}
+                style={{height: 23, width: 23}}
+              />
+            </TouchableRipple>
           </View>
         </View>
       </Card>

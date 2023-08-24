@@ -1,10 +1,10 @@
 import React from 'react';
 import {FlatList, Image, View} from 'react-native';
-import {CustomButton, CustomCard, Text} from '../../components';
-import {COLORS, ImagesPath} from '../../constant';
-import {dcList, service} from '../../json';
-import {HomeStyle} from './homeStyle/home.style';
-export const HomeScreen = () => {
+import {COLORS, ImagesPath} from '../../../constant';
+import {dcList, service} from '../../../json';
+import {HomeStyle} from '../homeStyle/home.style';
+import {CustomButton, CustomCard, Text} from '../../../components';
+export const HomeScreen = ({navigation}) => {
   return (
     <>
       <View style={HomeStyle.container}>
@@ -60,9 +60,15 @@ export const HomeScreen = () => {
             showsVerticalScrollIndicator={false}
             data={dcList}
             keyExtractor={(item, index) => index.toString()}
-            renderItem={({item}) => (
-              <CustomCard title={item.title} description={item.address} />
-            )}
+            renderItem={({item}) => {
+              return (
+                <CustomCard
+                  title={item.title}
+                  description={item.address}
+                  onNavigatePress={() => navigation.navigate('detail', {item})}
+                />
+              );
+            }}
             style={{marginTop: 6}}
           />
         </View>
