@@ -5,7 +5,7 @@ import {Text} from 'react-native-paper';
 import {COLORS} from '../../constant';
 import {CustomButton} from '../../components';
 
-export const ReportDetailsScreen = () => {
+export const DetailsScreen = () => {
   const arr = [1, 2, 3];
   const text =
     'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Mollitia amet, quasi saepe sint nihil incidunt consequatur adipisci cum temporibus reiciendis inventore est magni, harum, eius corruptineque id dolorum vitae.';
@@ -25,7 +25,9 @@ export const ReportDetailsScreen = () => {
         />
       </View>
       <View style={ReportDetailStyle.white_sec_con}>
-        <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{paddingBottom:10}}>
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{paddingBottom: 10}}>
           <View style={ReportDetailStyle.name_verify_con}>
             <Text variant="headlineSmall">Umer Habib</Text>
             <View style={ReportDetailStyle.verify}>
