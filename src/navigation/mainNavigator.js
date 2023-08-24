@@ -9,7 +9,15 @@ import {Text} from '../components';
 
 // import all screens here
 const CustomTabBarButton = ({focused, iconName, label}) => (
-  <View style={{display: 'flex', flexDirection: 'row'}}>
+  <View
+    style={{
+      display: 'flex',
+      flexDirection: 'row',
+      backgroundColor: '#F1EEF2',
+      borderRadius: 10,
+      paddingHorizontal: 12,
+      paddingVertical: 7,
+    }}>
     <Image
       source={iconName}
       style={{
@@ -17,36 +25,40 @@ const CustomTabBarButton = ({focused, iconName, label}) => (
         height: 20,
       }}
     />
-    <Text
-      color={focused ? COLORS.white : COLORS.purple}
-      style={{marginLeft: '3%'}}>
-      {label}
-    </Text>
+    {focused && (
+      <Text color={COLORS.purple} style={{marginLeft: '3%'}}>
+        {label}
+      </Text>
+    )}
   </View>
 );
 const MainStack = createBottomTabNavigator();
 const homeName = 'home';
 const detailsName = 'details';
 const settingsName = 'setting';
+const profileName = 'profile';
 export const MainNavigator = () => {
   return (
     <MainStack.Navigator
       initialRouteName={homeName}
       screenOptions={({route}) => ({
-        tabBarStyle: {height: 70},
+        tabBarStyle: {height: 60},
         tabBarIcon: ({focused}) => {
           let iconName;
           let rn = route.name;
 
           if (rn === homeName) {
-            iconName = focused ? ImagesPath.grooming : ImagesPath.melatonin;
+            iconName = focused ? ImagesPath.homeFill : ImagesPath.homeOut;
             label = 'home';
           } else if (rn === detailsName) {
-            iconName = focused ? ImagesPath.grooming : ImagesPath.melatonin;
+            iconName = focused ? ImagesPath.love : ImagesPath.loveOut;
             label = 'details';
           } else if (rn === settingsName) {
-            iconName = focused ? ImagesPath.grooming : ImagesPath.melatonin;
+            iconName = focused ? ImagesPath.msgFill : ImagesPath.msgOut;
             label = 'setting';
+          } else if (rn === profileName) {
+            iconName = focused ? ImagesPath.userFill : ImagesPath.userOut;
+            label = 'profile';
           }
 
           return (
@@ -57,13 +69,14 @@ export const MainNavigator = () => {
             />
           );
         },
-        tabBarActiveBackgroundColor: COLORS.purple,
+        // tabBarActiveBackgroundColor: COLORS.purple,
         headerShown: false,
         tabBarLabel: '',
       })}>
       <MainStack.Screen name={homeName} component={HomeScreen} />
       <MainStack.Screen name={detailsName} component={DetailsScreen} />
       <MainStack.Screen name={settingsName} component={SettingScreen} />
+      <MainStack.Screen name={profileName} component={HomeScreen} />
     </MainStack.Navigator>
   );
 };
