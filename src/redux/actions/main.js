@@ -6,12 +6,16 @@ import {
 } from '../constants';
 import {SERVER_IP} from '../../config';
 
-export const changePasswordAction = register_data => async dispatch => {
+export const changePasswordAction = changePasswordObj => async dispatch => {
   try {
     dispatch({
       type: CHANGE_PASSWORD_REQUEST,
     });
-    const {data} = await axios.get(`${SERVER_IP}/user/register`, register_data);
+    const {data} = await axios.put(
+      `${SERVER_IP}/user/change-password`,
+      changePasswordObj,
+    );
+    console.log('data from backend', data);
     //   data?.message && navigation.navigate('login');
     // dispatch({
     //   type: CHANGE_PASSWORD_SUCCESS,

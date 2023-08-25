@@ -7,7 +7,7 @@ import {useForm} from 'react-hook-form';
 import {useDispatch, useSelector} from 'react-redux';
 import {AuthStyle} from './authStyle.style';
 import {CustomButton, CustomInput, Text} from '../../components';
-// import {userRegisterAction} from '../../redux';
+import {userRegisterAction} from '../../redux';
 const RegisterScreen = ({navigation}) => {
   const {
     control,

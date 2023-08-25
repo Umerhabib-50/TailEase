@@ -2,6 +2,9 @@ import React from 'react';
 import {View} from 'react-native';
 import {CustomButton, CustomInput, Text} from '../../components';
 import {useForm} from 'react-hook-form';
+import {useDispatch, useSelector} from 'react-redux';
+import {changePasswordAction} from '../../redux';
+// import {GetUserId} from '../../utils/getUserId';
 
 const ChangePassword = () => {
   const {
@@ -10,9 +13,18 @@ const ChangePassword = () => {
     reset,
     formState: {errors},
   } = useForm();
+  // const {_id: userId} = GetUserId();
+  const dispatch = useDispatch();
+  const userId = useSelector(state => state?.userLogin?.userLogin?.User?._id);
+
   const changePasswordSubmit = data => {
-    console.log('data', data);
+    let obj = {
+      ...data,
+      userId,
+    };
+    dispatch(changePasswordAction(obj));
   };
+  // dispatch({type: 'CLEAR_ERROR'});
   return (
     <View style={{flex: 1}}>
       <View
