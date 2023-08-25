@@ -3,7 +3,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {useSelector} from 'react-redux';
 import {AuthNavigator} from './authNavigator';
-import {MainNavigator} from './mainNavigator';
+import {TabNavigator} from './tabNavigator';
 
 const RootStack = createNativeStackNavigator();
 
@@ -15,7 +15,7 @@ const RootStackContainer = () => {
     <RootStack.Navigator name="root" screenOptions={{headerShown: false}}>
       {/* <RootStack.Screen name="mainStack" component={MainNavigator} /> */}
       {token ? (
-        <RootStack.Screen name="mainStack" component={MainNavigator} />
+        <RootStack.Screen name="mainStack" component={TabNavigator} />
       ) : (
         <RootStack.Screen name="authStack" component={AuthNavigator} />
       )}

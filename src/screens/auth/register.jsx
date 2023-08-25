@@ -1,11 +1,13 @@
 import React, {useEffect} from 'react';
 import {ScrollView, View} from 'react-native';
-import {CustomButton, CustomInput, Text} from '../../components';
+// import {CustomButton, CustomInput, Text} from '../../components';
 import {TouchableRipple} from 'react-native-paper';
-import {AuthStyle} from './authStyle.style';
+// import {AuthStyle} from './authStyle.style';
 import {useForm} from 'react-hook-form';
 import {useDispatch, useSelector} from 'react-redux';
-import {userRegisterAction} from '../../redux';
+import {AuthStyle} from './authStyle.style';
+import {CustomButton, CustomInput, Text} from '../../components';
+// import {userRegisterAction} from '../../redux';
 const RegisterScreen = ({navigation}) => {
   const {
     control,

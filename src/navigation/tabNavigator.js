@@ -5,7 +5,6 @@ import {COLORS, ImagesPath} from '../constant';
 import {Text} from '../components';
 import {HomeNavigator} from './homeNavigator';
 import {ProfileNavigator} from './profileNavigator';
-
 // import all screens here
 const CustomTabBarButton = ({focused, iconName, label}) => (
   <View
@@ -31,14 +30,14 @@ const CustomTabBarButton = ({focused, iconName, label}) => (
     )}
   </View>
 );
-const MainStack = createBottomTabNavigator();
+const TabNavigation = createBottomTabNavigator();
 const homeName = 'home';
 const detailsName = 'details';
 const settingsName = 'setting';
 const profileName = 'profile';
-export const MainNavigator = () => {
+export const TabNavigator = () => {
   return (
-    <MainStack.Navigator
+    <TabNavigation.Navigator
       initialRouteName={homeName}
       screenOptions={({route}) => ({
         tabBarStyle: {height: 60},
@@ -72,10 +71,10 @@ export const MainNavigator = () => {
         headerShown: false,
         tabBarLabel: '',
       })}>
-      <MainStack.Screen name={homeName} component={HomeNavigator} />
-      <MainStack.Screen name={detailsName} component={ProfileNavigator} />
-      <MainStack.Screen name={settingsName} component={HomeNavigator} />
-      <MainStack.Screen name={profileName} component={ProfileNavigator} />
-    </MainStack.Navigator>
+      <TabNavigation.Screen name={homeName} component={HomeNavigator} />
+      <TabNavigation.Screen name={detailsName} component={ProfileNavigator} />
+      <TabNavigation.Screen name={settingsName} component={HomeNavigator} />
+      <TabNavigation.Screen name={profileName} component={ProfileNavigator} />
+    </TabNavigation.Navigator>
   );
 };

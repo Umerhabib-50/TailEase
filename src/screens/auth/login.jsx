@@ -1,11 +1,11 @@
 import React, {useEffect} from 'react';
 import {Image, View} from 'react-native';
-import {CustomButton, CustomInput, Text} from '../../components';
-import {ImagesPath} from '../../constant';
 import {TouchableRipple} from 'react-native-paper';
-import {AuthStyle} from './authStyle.style';
 import {useForm} from 'react-hook-form';
 import {useDispatch, useSelector} from 'react-redux';
+import {AuthStyle} from './authStyle.style';
+import {CustomButton, CustomInput, Text} from '../../components';
+import {ImagesPath} from '../../constant';
 import {userLoginAction} from '../../redux';
 
 const LoginScreen = ({navigation}) => {
@@ -19,7 +19,6 @@ const LoginScreen = ({navigation}) => {
   const {error, loading} = useSelector(state => state?.userLogin);
 
   const loginSubmit = data => {
-    console.log('hello');
     dispatch(userLoginAction(data));
   };
   useEffect(() => {
