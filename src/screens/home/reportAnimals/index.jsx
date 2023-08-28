@@ -107,7 +107,10 @@ const ReportAnimalsScreen = ({navigation}) => {
             />
           </View>
           <View style={{width: '100%', marginTop: 10}}>
-            <CustomButton title="Post" onPress={handleSubmit(onSubmit)} />
+            <CustomButton
+              title={woundedAnimal?.loading ? 'loading...' : 'Post'}
+              onPress={handleSubmit(onSubmit)}
+            />
           </View>
         </>
       )}

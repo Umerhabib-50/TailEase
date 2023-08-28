@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {FlatList, Image, View} from 'react-native';
 import {COLORS, ImagesPath} from '../../constant';
 import {service} from '../../json';
@@ -14,6 +14,18 @@ const HomeScreen = ({navigation}) => {
     fetcher,
   );
   const loading = true;
+
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      mutate();
+      // setModalVisible(true);
+      // setPic('');
+    });
+    return () => {
+      unsubscribe();
+      //   setModalVisible(false);
+    };
+  }, [navigation]);
   return (
     <>
       <View style={HomeStyle.container}>
