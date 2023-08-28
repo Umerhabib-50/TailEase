@@ -14,6 +14,8 @@ export const CustomInput = ({
   errors,
   password,
   keyboardType,
+  style,
+  multiline,
 }) => {
   const [show, setShow] = useState(password ? true : false);
 
@@ -37,8 +39,10 @@ export const CustomInput = ({
             return (
               <View>
                 <TextInput
+                  numberOfLines={multiline ? 4 : null}
+                  multiline={multiline}
                   keyboardType={keyboardType}
-                  style={styles.textInputView}
+                  style={[styles.textInputView, style]}
                   label={label}
                   value={value}
                   onChangeText={onChange}
