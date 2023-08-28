@@ -1,15 +1,23 @@
 import React from 'react';
 import {FlatList, Image, View} from 'react-native';
 import {COLORS, ImagesPath} from '../../constant';
-import {dcList, service} from '../../json';
+import {service} from '../../json';
 import {HomeStyle} from './home.style';
-import {CustomButton, CustomCard, Text} from '../../components';
-
+import {CustomCard, CustomLoader, Text} from '../../components';
+import LottieView from 'lottie-react-native';
+import useSWR from 'swr';
+import {SERVER_IP} from '../../config';
 const HomeScreen = ({navigation}) => {
+  const fetcher = (...args) => fetch(...args).then(res => res.json());
+  const {data, mutate, error, isLoading} = useSWR(
+    `${SERVER_IP}/WoundedAnimals/All`,
+    fetcher,
+  );
+  const loading = true;
   return (
     <>
       <View style={HomeStyle.container}>
-        <View style={HomeStyle.cardTop}>
+        {/* <View style={HomeStyle.cardTop}>
           <View style={{flex: 1}}>
             <Text color={COLORS.white}>
               Street animals need our protection, help them today
@@ -27,8 +35,12 @@ const HomeScreen = ({navigation}) => {
               style={{width: '100%', height: '100%', resizeMode: 'contain'}}
             />
           </View>
-        </View>
-
+        </View> */}
+        <LottieView
+          style={{height: 300, width: 300}}
+          source={require('../../assets/wellcome.json')}
+          autoPlay
+        />
         <View style={{marginTop: '10%'}}>
           <Text variant="titleMedium" fontWeight="bold">
             Services
@@ -57,23 +69,30 @@ const HomeScreen = ({navigation}) => {
           <Text variant="titleMedium" fontWeight="bold">
             Nearby Veterinary
           </Text>
-          <FlatList
-            showsVerticalScrollIndicator={false}
-            data={dcList}
-            keyExtractor={(item, index) => index.toString()}
-            renderItem={({item}) => {
-              return (
-                <CustomCard
-                  title={item.title}
-                  description={item.address}
-                  onNavigatePress={() =>
-                    navigation.navigate('wildLifeDetails', {item})
-                  }
-                />
-              );
-            }}
-            style={{marginTop: 6}}
-          />
+          {isLoading ? (
+            <CustomLoader />
+          ) : (
+            <FlatList
+              showsVerticalScrollIndicator={false}
+              data={data?.woundedAnimals}
+              keyExtractor={(item, index) => index.toString()}
+              renderItem={({item}) => {
+                const {description, imageUrl, woundedAnimal} = item;
+                const name = item?.user[0]?.name;
+                return (
+                  <CustomCard
+                    title={name}
+                    imageUrl={imageUrl}
+                    description={description}
+                    onNavigatePress={() =>
+                      navigation.navigate('wildLifeDetails', {item})
+                    }
+                  />
+                );
+              }}
+              style={{marginTop: 6}}
+            />
+          )}
         </View>
       </View>
     </>

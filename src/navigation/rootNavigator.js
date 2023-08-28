@@ -13,7 +13,6 @@ const RootStackContainer = () => {
   // const token = true;
   return (
     <RootStack.Navigator name="root" screenOptions={{headerShown: false}}>
-      {/* <RootStack.Screen name="mainStack" component={MainNavigator} /> */}
       {token ? (
         <RootStack.Screen name="mainStack" component={TabNavigator} />
       ) : (

@@ -3,11 +3,13 @@ import {
   USER_LOGIN_FAIL,
   USER_LOGIN_REQUEST,
   USER_LOGIN_SUCCESS,
+  USER_LOGOUT,
   USER_REGISTER_FAIL,
   USER_REGISTER_REQUEST,
   USER_REGISTER_SUCCESS,
 } from '../constants';
 import {SERVER_IP} from '../../config';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 //USER REGISTER
 export const userRegisterAction =
   (register_data, navigation) => async dispatch => {
@@ -49,4 +51,11 @@ export const userLoginAction = loginData => async dispatch => {
       payload: error?.response && error?.response?.data,
     });
   }
+};
+//USER LOGOUT
+export const logOutAction = navigation => dispatch => {
+  dispatch({type: USER_LOGOUT});
+  AsyncStorage.getAllKeys()
+    .then(keys => AsyncStorage.multiRemove(keys))
+    .then(() => navigation.navigate('authStack', {screen: 'login'}));
 };

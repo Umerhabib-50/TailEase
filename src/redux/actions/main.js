@@ -13,15 +13,16 @@ export const changePasswordAction =
       dispatch({
         type: CHANGE_PASSWORD_REQUEST,
       });
-      const data = await axios.post(
+      const {data} = await axios.post(
         `${SERVER_IP}/user/change-password`,
         changePasswordObj,
       );
-      // data?.message && navigation.navigate('homeStack', {screen: 'homeScreen'});
-      // dispatch({
-      // type: CHANGE_PASSWORD_SUCCESS,
-      //   payload: data,
-      // });
+      // navigation.navigate('homeScreen');
+
+      dispatch({
+        type: CHANGE_PASSWORD_SUCCESS,
+        payload: data,
+      });
     } catch (error) {
       dispatch({
         type: CHANGE_PASSWORD_FAIL,
