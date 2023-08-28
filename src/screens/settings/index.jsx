@@ -1,12 +1,34 @@
 import React from 'react';
-import {View, Image} from 'react-native';
+import {View, Image, Alert} from 'react-native';
 import {ProfileStyle} from './profile.style';
 import {Text} from '../../components';
 import {ImagesPath} from '../../constant';
 import {accout} from '../../json';
 import {TouchableRipple} from 'react-native-paper';
+import {useDispatch, useSelector} from 'react-redux';
+import {logOutAction} from '../../redux';
 
 const UserProfileScreen = ({navigation}) => {
+  // const token = useSelector(state => state?.userLogin?.userLogin?.Token);
+  const dispatch = useDispatch();
+
+  const showAlert = () => {
+    Alert.alert(
+      'Log Out',
+      'Are you sure?',
+      [
+        {
+          text: 'OK',
+          onPress: () => dispatch(logOutAction(navigation)),
+        },
+        {
+          text: 'CANCEL',
+          onPress: () => console.log('OK PRESS'),
+        },
+      ],
+      {cancelable: false},
+    );
+  };
   return (
     <View style={ProfileStyle.container}>
       <Image
@@ -31,6 +53,7 @@ const UserProfileScreen = ({navigation}) => {
                 key={ind}
                 onPress={() => {
                   ind == 0 && navigation.navigate('changePasswordScreen');
+                  ind == 1 && showAlert();
                 }}>
                 <>
                   <View

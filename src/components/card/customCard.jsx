@@ -7,15 +7,24 @@ import {Icon, Text, Wrapper} from '../../components';
 import {Background} from 'victory-native';
 import {COLORS, ImagesPath} from '../../constant';
 
-export const CustomCard = ({title, description, onNavigatePress}) => {
-  // const [show, setShow] = useState(false);
+export const CustomCard = ({title, description, onNavigatePress, imageUrl}) => {
   return (
     <TouchableRipple>
       <Card style={CustomCardStyle.card}>
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
-          <View style={CustomCardStyle.dcImage}>
-            <Image source={ImagesPath.vet} style={{width: 45, height: 45}} />
-          </View>
+          {/* <View style={CustomCardStyle.dcImage}> */}
+          <Image
+            source={{uri: imageUrl}}
+            style={CustomCardStyle.dcImage}
+            // style={{
+            //   width: 45,
+            //   height: 45,
+            //   borderTopRightRadius: 10,
+            //   borderTopLeftRadius: 10,
+            //   // marginBottom: 1z,
+            // }}
+          />
+          {/* </View> */}
 
           <View style={{marginLeft: 25, flex: 1}}>
             <Text variant="titleMedium" fontWeight="900">

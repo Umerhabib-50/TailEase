@@ -1,10 +1,10 @@
 import React, {useEffect} from 'react';
-import {View} from 'react-native';
+import {View, Alert} from 'react-native';
 import {CustomButton, CustomInput, Text} from '../../components';
 import {useForm} from 'react-hook-form';
 import {useDispatch, useSelector} from 'react-redux';
 import {changePasswordAction} from '../../redux';
-import LottieView from 'lottie-react-native';
+
 const ChangePassword = ({navigation}) => {
   const {
     control,
@@ -14,12 +14,9 @@ const ChangePassword = ({navigation}) => {
   } = useForm();
   // const {_id: userId} = GetUserId();
   const dispatch = useDispatch();
-  // const userId = useSelector(state => state?.userLogin?.userLogin?.User?._id);
   const userId = useSelector(state => state?.userLogin?.userLogin?.User?._id);
-  // const passwordData = useSelector(state => state?.changePassword);
-  console.log(
-    'password Change ',
-    useSelector(state => state?.changePassword),
+  const {error, loading, success, changePassword} = useSelector(
+    state => state?.changePassword,
   );
   const changePasswordSubmit = data => {
     let obj = {
@@ -27,21 +24,29 @@ const ChangePassword = ({navigation}) => {
       userId,
     };
     dispatch(changePasswordAction(obj, navigation));
+    reset();
   };
-  // useEffect(() => {
-  //   return () => {
-  //     reset();
-  //     dispatch({type: 'CLEAR_ERROR'});
-  //   };
-  // }, []);
-  // dispatch({type: 'CLEAR_ERROR'});
+  const showAlert = () => {
+    Alert.alert(
+      'Change Pawword',
+      changePassword?.message,
+      [
+        {
+          text: 'OK',
+          onPress: () => navigation.navigate('homeScreen'),
+        },
+      ],
+      {cancelable: false},
+    );
+  };
+  useEffect(() => {
+    return () => {
+      reset();
+      dispatch({type: 'CLEAR_ERROR'});
+    };
+  }, []);
   return (
     <View style={{flex: 1}}>
-      {/* <LottieView
-        style={{height: 300, width: 300}}
-        source={require('../../assets/wellcome.json')}
-        autoPlay
-      /> */}
       <View
         style={{
           height: 50,
@@ -77,11 +82,13 @@ const ChangePassword = ({navigation}) => {
           name="newPassword"
           keyboardType={'numeric'}
         />
+        {error && <Text color="red">{error?.message}</Text>}
         <CustomButton
           style={{marginTop: '3%'}}
-          title={'Change Password'}
+          title={loading ? 'Loading...' : 'Change Password'}
           onPress={handleSubmit(changePasswordSubmit)}
         />
+        {success == true && showAlert()}
       </View>
     </View>
   );

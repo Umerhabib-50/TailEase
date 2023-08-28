@@ -9,10 +9,9 @@ import {COLORS} from '../../../constant';
 
 const WildLifeDetailsScreen = ({navigation, route}) => {
   const {item} = route.params;
-  const {longitude, latitude} = item;
+  const {description, imageUrl, woundedAnimal} = item;
   const arr = [1, 2, 3];
-  const text =
-    'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Mollitia amet, quasi saepe sint nihil incidunt consequatur adipisci cum temporibus reiciendis inventore est magni, harum, eius corruptineque id dolorum vitae.';
+  const text = description;
 
   const [isExpanded, setIsExpanded] = useState(false);
 
@@ -20,8 +19,8 @@ const WildLifeDetailsScreen = ({navigation, route}) => {
     setIsExpanded(!isExpanded);
   };
   const markerCoordinate = {
-    latitude,
-    longitude,
+    latitude: 31.522781477385738,
+    longitude: 74.34742859707012,
   };
 
   return (
@@ -29,10 +28,7 @@ const WildLifeDetailsScreen = ({navigation, route}) => {
       <View style={WildLifeStyles.image_sec}>
         <Header img={leftArrow} navigation={navigation} />
         <View style={WildLifeStyles.img_con}>
-          <Image
-            style={WildLifeStyles.dic_img}
-            source={require('../../../assets/doc.jpg')}
-          />
+          <Image style={WildLifeStyles.dic_img} source={{uri: imageUrl}} />
         </View>
       </View>
       <View style={WildLifeStyles.white_sec_con}>
@@ -40,7 +36,7 @@ const WildLifeDetailsScreen = ({navigation, route}) => {
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{paddingBottom: 10}}>
           <View style={WildLifeStyles.name_verify_con}>
-            <Text variant="headlineSmall">Umer Habib</Text>
+            <Text variant="headlineSmall">{item?.user[0]?.name}</Text>
             <View style={WildLifeStyles.verify}>
               <Text variant="labelMedium" style={{color: 'green'}}>
                 Verified
@@ -79,12 +75,12 @@ const WildLifeDetailsScreen = ({navigation, route}) => {
             </View>
           </View>
           <MapView
-            scrollEnabled={false}
-            zoomEnabled={false}
+            // scrollEnabled={false}
+            // zoomEnabled={false}
             style={WildLifeStyles.map}
             initialRegion={{
-              latitude,
-              longitude,
+              latitude: 31.522781477385738,
+              longitude: 74.34742859707012,
               latitudeDelta: 0.005,
               longitudeDelta: 0.005,
             }}>
