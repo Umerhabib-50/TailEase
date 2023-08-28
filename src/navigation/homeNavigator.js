@@ -7,6 +7,7 @@ const HomeStack = createNativeStackNavigator();
 export const HomeNavigator = () => {
   return (
     <HomeStack.Navigator
+      name="homeStack"
       screenOptions={{
         headerShown: false,
         cardStyleInterpolator: ({current, next, layouts}) => {

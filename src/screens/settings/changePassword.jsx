@@ -1,12 +1,11 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {View} from 'react-native';
 import {CustomButton, CustomInput, Text} from '../../components';
 import {useForm} from 'react-hook-form';
 import {useDispatch, useSelector} from 'react-redux';
 import {changePasswordAction} from '../../redux';
-// import {GetUserId} from '../../utils/getUserId';
-
-const ChangePassword = () => {
+import LottieView from 'lottie-react-native';
+const ChangePassword = ({navigation}) => {
   const {
     control,
     handleSubmit,
@@ -15,18 +14,34 @@ const ChangePassword = () => {
   } = useForm();
   // const {_id: userId} = GetUserId();
   const dispatch = useDispatch();
+  // const userId = useSelector(state => state?.userLogin?.userLogin?.User?._id);
   const userId = useSelector(state => state?.userLogin?.userLogin?.User?._id);
-
+  // const passwordData = useSelector(state => state?.changePassword);
+  console.log(
+    'password Change ',
+    useSelector(state => state?.changePassword),
+  );
   const changePasswordSubmit = data => {
     let obj = {
       ...data,
       userId,
     };
-    dispatch(changePasswordAction(obj));
+    dispatch(changePasswordAction(obj, navigation));
   };
+  // useEffect(() => {
+  //   return () => {
+  //     reset();
+  //     dispatch({type: 'CLEAR_ERROR'});
+  //   };
+  // }, []);
   // dispatch({type: 'CLEAR_ERROR'});
   return (
     <View style={{flex: 1}}>
+      {/* <LottieView
+        style={{height: 300, width: 300}}
+        source={require('../../assets/wellcome.json')}
+        autoPlay
+      /> */}
       <View
         style={{
           height: 50,
