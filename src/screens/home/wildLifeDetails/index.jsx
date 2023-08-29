@@ -36,7 +36,7 @@ const WildLifeDetailsScreen = ({navigation, route}) => {
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{paddingBottom: 10}}>
           <View style={WildLifeStyles.name_verify_con}>
-            <Text variant="headlineSmall">{item?.user[0]?.name}</Text>
+            <Text variant="headlineSmall">{item?.user?.name}</Text>
             <View style={WildLifeStyles.verify}>
               <Text variant="labelMedium" style={{color: 'green'}}>
                 Verified
@@ -102,6 +102,7 @@ const WildLifeDetailsScreen = ({navigation, route}) => {
             //     console.error('Error opening Google Maps:', err),
             //   );
             // }}
+            onPress={() => navigation.navigate('animate')}
             style={{marginTop: 20}}
             title={'Go To Maps'}
           />

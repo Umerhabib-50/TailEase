@@ -1,29 +1,24 @@
 import React, {useEffect} from 'react';
 import {FlatList, Image, View} from 'react-native';
-import {COLORS, ImagesPath} from '../../constant';
 import {service} from '../../json';
 import {HomeStyle} from './home.style';
 import {CustomCard, CustomLoader, Text} from '../../components';
 import LottieView from 'lottie-react-native';
 import useSWR from 'swr';
 import {SERVER_IP} from '../../config';
+import Animated from 'react-native-reanimated';
 const HomeScreen = ({navigation}) => {
   const fetcher = (...args) => fetch(...args).then(res => res.json());
   const {data, mutate, error, isLoading} = useSWR(
     `${SERVER_IP}/WoundedAnimals/All`,
     fetcher,
   );
-  const loading = true;
-
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
       mutate();
-      // setModalVisible(true);
-      // setPic('');
     });
     return () => {
       unsubscribe();
-      //   setModalVisible(false);
     };
   }, [navigation]);
   return (
@@ -90,15 +85,19 @@ const HomeScreen = ({navigation}) => {
               keyExtractor={(item, index) => index.toString()}
               renderItem={({item}) => {
                 const {description, imageUrl, woundedAnimal} = item;
-                const name = item?.user[0]?.name;
+
+                const name = item?.user?.name;
                 return (
                   <CustomCard
                     title={name}
                     imageUrl={imageUrl}
                     description={description}
-                    onNavigatePress={() =>
+                    onCardPress={() =>
                       navigation.navigate('wildLifeDetails', {item})
                     }
+                    // onNavigatePress={() =>
+                    //   navigation.navigate('wildLifeDetails', {item})
+                    // }
                   />
                 );
               }}

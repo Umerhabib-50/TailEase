@@ -4,6 +4,7 @@ const COLORS = {
   lightPurple: '#f4e3ff',
   linearPurple: '#D1B3E8',
   lightGreen: '#e5f9ee',
+  black: '#000000',
 };
 
 export {COLORS};
