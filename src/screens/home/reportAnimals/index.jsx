@@ -23,6 +23,7 @@ const ReportAnimalsScreen = ({navigation}) => {
   const userId = useSelector(state => state?.userLogin?.userLogin?.User?._id);
 
   const woundedAnimal = useSelector(state => state.woundedAnimal);
+  console.log('woundedAnimal', woundedAnimal);
 
   const dispatch = useDispatch();
   //   const [images, setImages] = useState([]);

@@ -8,6 +8,8 @@ export const HomeStyle = StyleSheet.create({
     // padding: '7%',
     paddingHorizontal: '7%',
     // paddingTop: '1%',
+    // backgroundColor: COLORS.linearPurple,
+    position: 'relative',
   },
   cardTop: {
     backgroundColor: COLORS.purple,
