@@ -5,6 +5,7 @@ import {COLORS, ImagesPath} from '../constant';
 import {Text} from '../components';
 import {HomeNavigator} from './homeNavigator';
 import {ProfileNavigator} from './profileNavigator';
+import ReportAnimalsScreen from '../screens/home/reportAnimals';
 // import all screens here
 const CustomTabBarButton = ({focused, iconName, label}) => (
   <View
@@ -32,7 +33,7 @@ const CustomTabBarButton = ({focused, iconName, label}) => (
 );
 const TabNavigation = createBottomTabNavigator();
 const homeName = 'home';
-const detailsName = 'details';
+const detailsName = 'report';
 const settingsName = 'setting';
 const profileName = 'profile';
 export const TabNavigator = () => {
@@ -49,7 +50,9 @@ export const TabNavigator = () => {
             iconName = focused ? ImagesPath.homeFill : ImagesPath.homeOut;
             label = 'home';
           } else if (rn === detailsName) {
-            iconName = focused ? ImagesPath.love : ImagesPath.loveOut;
+            iconName = focused
+              ? ImagesPath.reportFilled
+              : ImagesPath.reportOutlined;
             label = 'details';
           } else if (rn === settingsName) {
             iconName = focused ? ImagesPath.msgFill : ImagesPath.msgOut;
@@ -72,7 +75,10 @@ export const TabNavigator = () => {
         tabBarLabel: '',
       })}>
       <TabNavigation.Screen name={homeName} component={HomeNavigator} />
-      <TabNavigation.Screen name={detailsName} component={ProfileNavigator} />
+      <TabNavigation.Screen
+        name={detailsName}
+        component={ReportAnimalsScreen}
+      />
       <TabNavigation.Screen name={settingsName} component={HomeNavigator} />
       <TabNavigation.Screen name={profileName} component={ProfileNavigator} />
     </TabNavigation.Navigator>

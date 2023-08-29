@@ -31,7 +31,7 @@ export const CustomCard = ({title, description, onNavigatePress, imageUrl}) => {
               {title}
             </Text>
             <Text variant="bodyMedium" fontWeight="200">
-              {description}
+              {description.slice(0, 10)}
             </Text>
             <View style={CustomCardStyle.midSection}>
               <Text fontWeight="900">$ 25</Text>

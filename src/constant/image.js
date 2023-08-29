@@ -16,6 +16,8 @@ const userOut = require('../assets/userOut.png');
 const profileImg = require('../assets/profile.jpg');
 const changePassword = require('../assets/padlock.png');
 const signOut = require('../assets/switch.png');
+const reportFilled = require('../assets/report_filled.png');
+const reportOutlined = require('../assets/report_outlined.png');
 
 export const ImagesPath = {
   checkImage,
@@ -36,4 +38,6 @@ export const ImagesPath = {
   profileImg,
   signOut,
   changePassword,
+  reportFilled,
+  reportOutlined,
 };
