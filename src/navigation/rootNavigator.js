@@ -8,13 +8,14 @@ import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {useSelector} from 'react-redux';
 import {AuthNavigator} from './authNavigator';
 import {TabNavigator} from './tabNavigator';
+import {StatusBar} from 'react-native';
 
 // Define the RootStackNavigator outside of the component
 const RootStack = createNativeStackNavigator();
 
 const RootStackContainer = () => {
   const data = useSelector(state => state?.userLogin?.userLogin);
-  const token = data?.Token;
+  const token = data?.user?.token;
 
   return (
     <RootStack.Navigator
