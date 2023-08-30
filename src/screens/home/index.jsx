@@ -1,6 +1,5 @@
 import React, {useEffect} from 'react';
-import {FlatList, Image, View, Animated, ScrollView} from 'react-native';
-import {COLORS, ImagesPath} from '../../constant';
+import {Image, View, Animated} from 'react-native';
 import {service} from '../../json';
 import {HomeStyle} from './home.style';
 import {CustomCard, CustomLoader, Text} from '../../components';

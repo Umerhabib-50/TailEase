@@ -96,13 +96,12 @@ const WildLifeDetailsScreen = ({navigation, route}) => {
           </View> */}
           <CustomButton
             // onPress={() => {
-            //   const url = `https://www.google.com/maps/dir/?api=1&destination=${latitude},${longitude}`;
+            //   const url = `https://www.google.com/maps/dir/?api=1&destination=${31.522781477385738},${74.34742859707012}`;
 
             //   Linking.openURL(url).catch(err =>
             //     console.error('Error opening Google Maps:', err),
             //   );
             // }}
-
             style={{marginTop: 20}}
             title={'Go To Maps'}
           />

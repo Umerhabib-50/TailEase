@@ -13,7 +13,7 @@ export const AuthNavigator = () => {
         headerShown: false,
         contentStyle: {backgroundColor: 'white'},
       }}>
-      {/* <AuthStack.Screen name="animate" component={ReanimtaionScreen} /> */}
+      <AuthStack.Screen name="animate" component={ReanimtaionScreen} />
       <AuthStack.Screen name="login" component={LoginScreen} />
       <AuthStack.Screen name="register" component={RegisterScreen} />
       {/* <AuthStack.Screen name="forgot" component={ForgotScreen} /> */}

@@ -29,7 +29,6 @@ export const HomeNavigator = () => {
         name="wildLifeDetails"
         component={WildLifeDetailsScreen}
       />
-      {/* <HomeStack.Screen name="animate" component={ReanimtaionScreen} /> */}
     </HomeStack.Navigator>
   );
 };
