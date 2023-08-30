@@ -24,6 +24,7 @@ const RegisterScreen = ({navigation}) => {
   useEffect(() => {
     return () => {
       reset();
+      console.log('register cleared');
       dispatch({type: 'CLEAR_ERROR'});
     };
   }, []);

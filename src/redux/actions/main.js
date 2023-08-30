@@ -36,7 +36,6 @@ export const changePasswordAction =
 
 export const woundedAnimalAction =
   (animalData, id, navigation) => async dispatch => {
-    console.log('woundedAnimalAction', animalData, id);
     try {
       dispatch({
         type: WOUNDED_ANIMAL_REQUEST,

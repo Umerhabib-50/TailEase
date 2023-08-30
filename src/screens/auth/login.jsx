@@ -7,26 +7,32 @@ import {AuthStyle} from './authStyle.style';
 import {CustomButton, CustomInput, Text} from '../../components';
 import {ImagesPath} from '../../constant';
 import {userLoginAction} from '../../redux';
+import {useFocusEffect, useIsFocused} from '@react-navigation/native';
 
 const LoginScreen = ({navigation}) => {
+  // const isFocused = useIsFocused();
+  // console.log('isFocused', isFocused);
   const {
     control,
     handleSubmit,
     reset,
     formState: {errors},
   } = useForm();
+
   const dispatch = useDispatch();
   const {error, loading} = useSelector(state => state?.userLogin);
 
   const loginSubmit = data => {
     dispatch(userLoginAction(data));
   };
+
   useEffect(() => {
     return () => {
+      console.log('cleared');
       reset();
-      dispatch({type: 'CLEAR_ERROR'});
     };
   }, []);
+
   return (
     <View style={AuthStyle.container}>
       <View>

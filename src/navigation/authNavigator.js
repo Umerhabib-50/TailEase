@@ -1,6 +1,6 @@
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {LoginScreen, RegisterScreen} from '../screens';
+import {LoginScreen, ReanimtaionScreen, RegisterScreen} from '../screens';
 
 // import all screens here
 
@@ -13,6 +13,7 @@ export const AuthNavigator = () => {
         headerShown: false,
         contentStyle: {backgroundColor: 'white'},
       }}>
+      {/* <AuthStack.Screen name="animate" component={ReanimtaionScreen} /> */}
       <AuthStack.Screen name="login" component={LoginScreen} />
       <AuthStack.Screen name="register" component={RegisterScreen} />
       {/* <AuthStack.Screen name="forgot" component={ForgotScreen} /> */}

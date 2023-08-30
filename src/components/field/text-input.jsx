@@ -50,6 +50,7 @@ export const CustomInput = ({
                   activeOutlineColor={COLORS.purple}
                   maxLength={name == 'phoneNo' ? 11 : null}
                   secureTextEntry={show}
+                  defaultValue=""
                   right={
                     password ? (
                       <TextInput.Icon

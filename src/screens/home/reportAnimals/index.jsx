@@ -75,6 +75,7 @@ const ReportAnimalsScreen = ({navigation}) => {
     const unsubscribe = navigation.addListener('focus', () => {
       setModalVisible(true);
       setPic('');
+      reset();
     });
     return () => {
       unsubscribe();

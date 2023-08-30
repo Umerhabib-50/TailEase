@@ -102,6 +102,7 @@ const WildLifeDetailsScreen = ({navigation, route}) => {
             //     console.error('Error opening Google Maps:', err),
             //   );
             // }}
+
             style={{marginTop: 20}}
             title={'Go To Maps'}
           />
