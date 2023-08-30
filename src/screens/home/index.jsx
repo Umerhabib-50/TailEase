@@ -1,14 +1,25 @@
-import React from 'react';
+import React, {useEffect, useRef} from 'react';
 import {Text} from '../../components';
-import {View, ScrollView, Image} from 'react-native';
+import {View, ScrollView, Image, Animated} from 'react-native';
 import LottieView from 'lottie-react-native';
 import {COLORS, ImagesPath} from '../../constant';
-import {service} from '../../json';
 
 const services = [
-  {img: ImagesPath.post, service: 'Posts', bgColor: COLORS.lightGreen},
-  {img: ImagesPath.food, service: 'Food', bgColor: COLORS.lightBlue},
-  {img: ImagesPath.melatonin, service: 'Medicine', bgColor: COLORS.lightBrown},
+  {
+    img: ImagesPath.post,
+    service: 'Posts',
+    bgColor: COLORS.lightGreen,
+  },
+  {
+    img: ImagesPath.food,
+    service: 'Food',
+    bgColor: COLORS.lightBlue,
+  },
+  {
+    img: ImagesPath.melatonin,
+    service: 'Medicine',
+    bgColor: COLORS.lightBrown,
+  },
   {img: ImagesPath.vet, service: 'Vetenary', bgColor: COLORS.lightPurple},
   {img: ImagesPath.grooming, service: 'Grooming', bgColor: COLORS.lightYellow},
   {img: ImagesPath.food, service: 'Food', bgColor: COLORS.lightBlue},
@@ -17,13 +28,32 @@ const services = [
 ];
 
 const HomeScreen = ({navigation}) => {
+  // const translateY = useRef(new Animated.Value(-100)).current;
+  const arrtranslateY = useRef(new Animated.Value(-100)).current;
+
+  useEffect(() => {
+    // Animated.spring(translateY, {
+    //   toValue: 0,
+    //   stiffness: 150, // Adjust the stiffness of the spring
+    //   damping: 15, // Adjust the damping of the spring
+    //   useNativeDriver: true,
+    // }).start();
+    Animated.spring(arrtranslateY, {
+      toValue: 0,
+      stiffness: 150, // Adjust the stiffness of the spring
+      damping: 15, // Adjust the damping of the spring
+      useNativeDriver: true,
+    }).start();
+  }, []);
+
   return (
-    <View
+    <Animated.View
       style={{
         flex: 1,
         backgroundColor: 'white',
         paddingVertical: 10,
         paddingHorizontal: 25,
+        // transform: [{translateY}],
       }}>
       <View
         style={{
@@ -33,16 +63,22 @@ const HomeScreen = ({navigation}) => {
         }}>
         <LottieView
           style={{height: 250, width: 300}}
-          source={require('../../assets/wellcome.json')}
+          source={require('../../assets/animations/wellcome.json')}
           autoPlay
         />
       </View>
 
-      <View style={{flex: 1}}>
+      <View
+        style={{
+          flex: 1,
+          borderTopLeftRadius: 20,
+          borderTopRightRadius: 20,
+        }}>
         <Text style={{marginBottom: 5}} variant="titleLarge">
           Services
         </Text>
         <ScrollView
+          showsVerticalScrollIndicator={false}
           contentContainerStyle={{
             display: 'flex',
             justifyContent: 'space-between',
@@ -51,13 +87,13 @@ const HomeScreen = ({navigation}) => {
             flexDirection: 'row',
           }}>
           {services.map((item, i) => {
-            const {img, service, bgColor} = item;
+            const {img, service, bgColor, animation} = item;
             return (
-              <View
+              <Animated.View
                 key={i}
                 style={{
                   backgroundColor: bgColor,
-                  width: 160,
+                  width: '45%',
                   height: 160,
                   marginVertical: 10,
                   padding: 10,
@@ -65,15 +101,17 @@ const HomeScreen = ({navigation}) => {
                   display: 'flex',
                   justifyContent: 'space-around',
                   alignItems: 'center',
+                  transform: [{translateY: arrtranslateY}],
                 }}>
-                <Image style={{width: 80, height: 80}} source={img} />
+                <Image style={{height: 90, width: 90}} source={img} />
+
                 <Text>{service}</Text>
-              </View>
+              </Animated.View>
             );
           })}
         </ScrollView>
       </View>
-    </View>
+    </Animated.View>
   );
 };
 

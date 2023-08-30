@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 
 import {
   initialWindowMetrics,
@@ -8,13 +8,18 @@ import {
 // navigation
 import {RootNavigator} from './navigation/rootNavigator';
 
-import {Text, View} from 'react-native';
+import {StatusBar, Text, View} from 'react-native';
 // redux setup
 import {Provider as StoreProvider} from 'react-redux';
 import {PersistGate} from 'redux-persist/integration/react';
 import {store, persistedStore} from './redux/store';
+import {COLORS} from './constant';
 
 const App = () => {
+  // useEffect(() => {
+  //   // StatusBar.setTranslucent(true);
+  //   StatusBar.setBackgroundColor('red');
+  // }, []);
   return (
     <>
       <StoreProvider store={store}>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   StyleSheet,
   View,
@@ -7,29 +7,45 @@ import {
   StatusBar,
   Modal,
 } from 'react-native';
-import {Text} from '../../../components';
-import {COLORS, ImagesPath} from '../../../constant';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {Text} from '../../components';
+import {COLORS, ImagesPath} from '../../constant';
 import {Button} from 'react-native-paper';
-const ReanimtaionScreen = () => {
+import {useIsFocused} from '@react-navigation/native';
+
+const ReanimtaionScreen = ({navigation}) => {
+  const isFocused = useIsFocused();
+
   const windowDimensions = useWindowDimensions();
-  const insets = useSafeAreaInsets();
+
   return (
-    <>
-      <Modal animationType="slide" transparent={true}>
+    <View style={styles.container}>
+      <StatusBar hidden={true} />
+      <Image
+        source={ImagesPath.walkImage}
+        style={{
+          width: windowDimensions.width,
+          height: windowDimensions.height,
+        }}
+      />
+
+      <Modal transparent={true} visible={isFocused}>
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
             <View style={styles.overlay}>
               <Text
                 style={styles.welcomeText}
-                variant="headlineSmall"
+                variant="titleLarge"
                 color={COLORS.white}>
                 Welcome to the
               </Text>
-              <Text color={COLORS.white} variant="displayMedium">
+              <Text color={COLORS.white} variant="displayLarge">
                 TailEase
               </Text>
               <Button
+                onPress={() => {
+                  // setModalVisible(false);
+                  navigation.navigate('login');
+                }}
                 mode="outlined"
                 textColor="white"
                 style={{
@@ -43,17 +59,7 @@ const ReanimtaionScreen = () => {
           </View>
         </View>
       </Modal>
-      <View style={styles.container}>
-        <StatusBar hidden={true} />
-        <Image
-          source={ImagesPath.walkImage}
-          style={{
-            width: windowDimensions.width,
-            height: windowDimensions.height - insets.top,
-          }}
-        />
-      </View>
-    </>
+    </View>
   );
 };
 
@@ -89,4 +95,5 @@ const styles = StyleSheet.create({
     width: '100%',
   },
 });
+
 export default ReanimtaionScreen;

@@ -10,7 +10,7 @@ import HomeScreen from './home';
 //PROFILE SCREENS
 import UserProfileScreen from './settings';
 import ChangePassword from './settings/changePassword';
-import ReanimtaionScreen from './home/wildLifeDetails/animation';
+import ReanimtaionScreen from './auth/animation';
 export {
   LoginScreen,
   RegisterScreen,

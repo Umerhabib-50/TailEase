@@ -1,11 +1,11 @@
 import React, {useEffect} from 'react';
-import {Image, View} from 'react-native';
+import {Image, ScrollView, StyleSheet, View} from 'react-native';
 import {TouchableRipple} from 'react-native-paper';
 import {useForm} from 'react-hook-form';
 import {useDispatch, useSelector} from 'react-redux';
 import {AuthStyle} from './authStyle.style';
 import {CustomButton, CustomInput, Text} from '../../components';
-import {ImagesPath} from '../../constant';
+import {COLORS, ImagesPath} from '../../constant';
 import {userLoginAction} from '../../redux';
 import {useFocusEffect, useIsFocused} from '@react-navigation/native';
 
@@ -34,64 +34,62 @@ const LoginScreen = ({navigation}) => {
   }, []);
 
   return (
-    <View style={AuthStyle.container}>
-      <View>
-        <Text variant="displaySmall" fontWeight="bold">
+    <>
+      <View style={AuthStyle.imageParent}>
+        <View style={AuthStyle.imageBackground} />
+        <Image source={ImagesPath.walkImage} style={AuthStyle.image} />
+      </View>
+
+      <View style={AuthStyle.text}>
+        <Text variant="displaySmall" fontWeight="bold" color={COLORS.white}>
           Welcome
         </Text>
-        <Text variant="displaySmall" fontWeight="bold">
-          back
-        </Text>
-        <Text variant="bodyLarge" style={{marginTop: '4%'}}>
+        <Text variant="bodyLarge" color={COLORS.white}>
           Sign in to continue
         </Text>
-        <CustomInput
-          control={control}
-          errors={errors}
-          label="Phone"
-          name="phoneNo"
-          keyboardType={'numeric'}
-        />
-        <CustomInput
-          password
-          control={control}
-          errors={errors}
-          label="Password"
-          name="password"
-        />
-        {error && (
-          <Text color="red" style={{textAlign: 'center'}}>
-            Wrong Credentials
-          </Text>
-        )}
-        <View style={AuthStyle.forgot}>
-          <View style={AuthStyle.check}>
-            <Image
-              source={ImagesPath.checkImage}
-              style={{width: 15, height: 15, marginTop: '3%'}}
+      </View>
+      <ScrollView>
+        <View style={AuthStyle.container}>
+          <View style={{paddingHorizontal: '7%'}}>
+            <CustomInput
+              control={control}
+              errors={errors}
+              label="Phone"
+              name="phoneNo"
+              keyboardType={'numeric'}
             />
-            <Text style={{marginLeft: '3%'}}>Remember me</Text>
+            <CustomInput
+              password
+              control={control}
+              errors={errors}
+              label="Password"
+              name="password"
+            />
+            {error && (
+              <Text color="red" style={{textAlign: 'center'}}>
+                Wrong Credentials
+              </Text>
+            )}
+            <CustomButton
+              title={loading ? 'loading...' : 'Sign In'}
+              style={{marginTop: '8%'}}
+              onPress={handleSubmit(loginSubmit)}
+            />
           </View>
-          <TouchableRipple onPress={() => navigation.navigate('forgot')}>
-            <Text>Forgot password?</Text>
-          </TouchableRipple>
+          <View style={AuthStyle.bottom}>
+            <TouchableRipple onPress={() => navigation.navigate('register')}>
+              <Text
+                fontWeight="bold"
+                variant="bodyMedium"
+                color={COLORS.purple}>
+                Sign Up
+              </Text>
+            </TouchableRipple>
+            <Text color={COLORS.purple}>Forgot password?</Text>
+          </View>
         </View>
-
-        <CustomButton
-          title={loading ? 'loading...' : 'Sign In'}
-          style={{marginTop: '8%'}}
-          onPress={handleSubmit(loginSubmit)}
-        />
-      </View>
-      <View style={AuthStyle.bottom}>
-        <Text>Don't have an account?</Text>
-        <TouchableRipple onPress={() => navigation.navigate('register')}>
-          <Text fontWeight="bold" variant="bodyMedium">
-            Sign Up
-          </Text>
-        </TouchableRipple>
-      </View>
-    </View>
+      </ScrollView>
+    </>
   );
 };
 

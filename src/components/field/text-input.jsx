@@ -16,6 +16,7 @@ export const CustomInput = ({
   keyboardType,
   style,
   multiline,
+  outlineColor = COLORS.purple,
 }) => {
   const [show, setShow] = useState(password ? true : false);
 
@@ -39,12 +40,14 @@ export const CustomInput = ({
             return (
               <View>
                 <TextInput
+                  outlineColor={outlineColor}
                   numberOfLines={multiline ? 4 : null}
                   multiline={multiline}
                   keyboardType={keyboardType}
                   style={[styles.textInputView, style]}
                   label={label}
                   value={value}
+                  labelStyle={{color: 'red'}}
                   onChangeText={onChange}
                   mode="outlined"
                   activeOutlineColor={COLORS.purple}
