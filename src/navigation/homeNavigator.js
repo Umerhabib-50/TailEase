@@ -1,6 +1,6 @@
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {HomeScreen, ReanimtaionScreen, WildLifeDetailsScreen} from '../screens';
+import {HomeScreen, WildLifeDetailsScreen} from '../screens';
 
 const HomeStack = createNativeStackNavigator();
 
@@ -29,7 +29,7 @@ export const HomeNavigator = () => {
         name="wildLifeDetails"
         component={WildLifeDetailsScreen}
       />
-      <HomeStack.Screen name="animate" component={ReanimtaionScreen} />
+      {/* <HomeStack.Screen name="animate" component={ReanimtaionScreen} /> */}
     </HomeStack.Navigator>
   );
 };

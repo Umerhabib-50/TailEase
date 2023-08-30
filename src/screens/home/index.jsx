@@ -1,18 +1,63 @@
 import React, {useEffect} from 'react';
-import {FlatList, Image, View} from 'react-native';
+import {FlatList, Image, View, Animated, ScrollView} from 'react-native';
+import {COLORS, ImagesPath} from '../../constant';
 import {service} from '../../json';
 import {HomeStyle} from './home.style';
 import {CustomCard, CustomLoader, Text} from '../../components';
 import LottieView from 'lottie-react-native';
 import useSWR from 'swr';
 import {SERVER_IP} from '../../config';
-import Animated from 'react-native-reanimated';
+import {SafeAreaView} from 'react-native-safe-area-context';
 const HomeScreen = ({navigation}) => {
+  const scrollY = new Animated.Value(0);
+
   const fetcher = (...args) => fetch(...args).then(res => res.json());
   const {data, mutate, error, isLoading} = useSWR(
     `${SERVER_IP}/WoundedAnimals/All`,
     fetcher,
   );
+
+  const animatedStyles = {
+    headerHeight: scrollY.interpolate({
+      inputRange: [0, 20],
+      outputRange: [200, 0],
+      extrapolate: 'clamp',
+    }),
+    servicesPosition: scrollY.interpolate({
+      inputRange: [0, 20],
+      outputRange: [200, 0],
+      extrapolate: 'clamp',
+    }),
+    scrollPadding: scrollY.interpolate({
+      inputRange: [0, 20],
+      outputRange: [350, 200],
+      extrapolate: 'clamp',
+    }),
+    opacity: scrollY.interpolate({
+      inputRange: [0, 20],
+      outputRange: [1, 0],
+      extrapolate: 'clamp',
+    }),
+  };
+
+  const handleScrollEnd = event => {
+    const offsetY = event.nativeEvent.contentOffset.y;
+
+    if (offsetY >= 15) {
+      Animated.timing(scrollY, {
+        toValue: 30,
+        duration: 300,
+        useNativeDriver: false,
+      }).start();
+    } else {
+      Animated.timing(scrollY, {
+        toValue: 0,
+        duration: 300,
+        useNativeDriver: false,
+      }).start();
+    }
+  };
+
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
       mutate();
@@ -21,34 +66,39 @@ const HomeScreen = ({navigation}) => {
       unsubscribe();
     };
   }, [navigation]);
+
   return (
-    <>
-      <View style={HomeStyle.container}>
-        {/* <View style={HomeStyle.cardTop}>
-          <View style={{flex: 1}}>
-            <Text color={COLORS.white}>
-              Street animals need our protection, help them today
-            </Text>
-            <CustomButton
-              color={COLORS.white}
-              title="Send Image"
-              textColor={COLORS.purple}
-              style={{marginTop: '7%'}}
-            />
-          </View>
-          <View style={{flex: 1}}>
-            <Image
-              source={ImagesPath.homeImage}
-              style={{width: '100%', height: '100%', resizeMode: 'contain'}}
-            />
-          </View>
-        </View> */}
+    <SafeAreaView style={{flex: 1, paddingHorizontal: 20, paddingVertical: 10}}>
+      <Animated.View
+        style={{
+          justifyContent: 'center',
+          alignItems: 'center',
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          zIndex: 1,
+          height: animatedStyles.headerHeight,
+          opacity: animatedStyles.opacity,
+          zIndex: 1,
+        }}>
         <LottieView
           style={{height: 300, width: 300}}
           source={require('../../assets/wellcome.json')}
           autoPlay
         />
-        <View style={{marginTop: '10%'}}>
+      </Animated.View>
+      <Animated.View
+        style={{
+          width: '100%',
+          position: 'absolute',
+          top: animatedStyles.servicesPosition,
+          right: 20,
+          zIndex: 1,
+          backgroundColor: '#F0F0F0',
+          paddingVertical: 10,
+        }}>
+        <View>
           <Text variant="titleMedium" fontWeight="bold">
             Services
           </Text>
@@ -71,42 +121,36 @@ const HomeScreen = ({navigation}) => {
               );
             })}
           </View>
-        </View>
-        <View style={{marginTop: '10%', flex: 1}}>
-          <Text variant="titleMedium" fontWeight="bold">
+          <Text style={{marginTop: 20}} variant="titleMedium" fontWeight="bold">
             Nearby Veterinary
           </Text>
-          {isLoading ? (
-            <CustomLoader />
-          ) : (
-            <FlatList
-              showsVerticalScrollIndicator={false}
-              data={data?.woundedAnimals}
-              keyExtractor={(item, index) => index.toString()}
-              renderItem={({item}) => {
-                const {description, imageUrl, woundedAnimal} = item;
-
-                const name = item?.user?.name;
-                return (
-                  <CustomCard
-                    title={name}
-                    imageUrl={imageUrl}
-                    description={description}
-                    onCardPress={() =>
-                      navigation.navigate('wildLifeDetails', {item})
-                    }
-                    // onNavigatePress={() =>
-                    //   navigation.navigate('wildLifeDetails', {item})
-                    // }
-                  />
-                );
-              }}
-              style={{marginTop: 6}}
-            />
-          )}
         </View>
-      </View>
-    </>
+      </Animated.View>
+
+      <Animated.FlatList
+        style={{paddingTop: animatedStyles.scrollPadding}}
+        onScroll={Animated.event(
+          [{nativeEvent: {contentOffset: {y: scrollY}}}],
+          {useNativeDriver: false},
+        )}
+        onScrollEndDrag={handleScrollEnd}
+        showsVerticalScrollIndicator={false}
+        data={data?.woundedAnimals}
+        keyExtractor={(item, index) => index.toString()}
+        renderItem={({item}) => {
+          const {description, imageUrl, woundedAnimal} = item;
+          const name = item?.user?.name;
+          return (
+            <CustomCard
+              title={name}
+              imageUrl={imageUrl}
+              description={description}
+              onCardPress={() => navigation.navigate('wildLifeDetails', {item})}
+            />
+          );
+        }}
+      />
+    </SafeAreaView>
   );
 };
 
