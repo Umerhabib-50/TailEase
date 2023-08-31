@@ -52,3 +52,7 @@ export const accout = [
   {image: ImagesPath.changePassword, title: 'Change Password'},
   {image: ImagesPath.signOut, title: 'Sign Out'},
 ];
+export const postData = [
+  {image: ImagesPath.cameraImage, title: 'Camera'},
+  {image: ImagesPath.galleyImage, title: 'Gallery'},
+];

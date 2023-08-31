@@ -5,6 +5,7 @@ const COLORS = {
   linearPurple: '#D1B3E8',
   lightGreen: '#e5f9ee',
   black: '#000000',
+  gray: '#E2E2E2',
 };
 
 export {COLORS};

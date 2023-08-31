@@ -1,5 +1,11 @@
-import React, {useState} from 'react';
-import {Image, View, ScrollView, TouchableOpacity} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {
+  Image,
+  View,
+  ScrollView,
+  TouchableOpacity,
+  Animated,
+} from 'react-native';
 import leftArrow from '../../../assets/left-arrow.png';
 import MapView from 'react-native-maps';
 import {Marker} from 'react-native-maps';
@@ -12,7 +18,7 @@ const WildLifeDetailsScreen = ({navigation, route}) => {
   const {description, imageUrl, woundedAnimal} = item;
   const arr = [1, 2, 3];
   const text = description;
-
+  const [fadeIn] = useState(new Animated.Value(0));
   const [isExpanded, setIsExpanded] = useState(false);
 
   const toggleTextExpansion = () => {
@@ -23,8 +29,16 @@ const WildLifeDetailsScreen = ({navigation, route}) => {
     longitude: 74.34742859707012,
   };
 
+  useEffect(() => {
+    // Animate fadeIn when the screen mounts
+    Animated.timing(fadeIn, {
+      toValue: 1,
+      duration: 1000,
+      useNativeDriver: true,
+    }).start();
+  }, []);
   return (
-    <View style={WildLifeStyles.container}>
+    <Animated.View style={{...WildLifeStyles.container, opacity: fadeIn}}>
       <View style={WildLifeStyles.image_sec}>
         <Header img={leftArrow} navigation={navigation} />
         <View style={WildLifeStyles.img_con}>
@@ -107,7 +121,7 @@ const WildLifeDetailsScreen = ({navigation, route}) => {
           />
         </ScrollView>
       </View>
-    </View>
+    </Animated.View>
   );
 };
 

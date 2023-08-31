@@ -19,6 +19,8 @@ const signOut = require('../assets/switch.png');
 const reportFilled = require('../assets/report_filled.png');
 const reportOutlined = require('../assets/report_outlined.png');
 const walkImage = require('../assets/unsplash.jpg');
+const galleyImage = require('../assets/gallery.png');
+const cameraImage = require('../assets/camera.png');
 export const ImagesPath = {
   checkImage,
   homeImage,
@@ -41,4 +43,6 @@ export const ImagesPath = {
   reportFilled,
   reportOutlined,
   walkImage,
+  galleyImage,
+  cameraImage,
 };
