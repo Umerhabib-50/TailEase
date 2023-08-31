@@ -86,6 +86,8 @@ const ReportAnimalsScreen = ({navigation}) => {
         getCurrentLocation(); // Call the function to get location
       } else {
         console.log('Location permission denied');
+        setLatitude(31.522781477385738);
+        setLongitude(74.34742859707012);
       }
     } catch (error) {
       console.warn('Error requesting location permission:', error);
@@ -106,7 +108,7 @@ const ReportAnimalsScreen = ({navigation}) => {
     );
   };
   useEffect(() => {
-    getCurrentLocation();
+    // getCurrentLocation();
     checkAndRequestLocationPermission();
   }, []);
   useEffect(() => {
