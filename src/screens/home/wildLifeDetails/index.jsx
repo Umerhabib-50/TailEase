@@ -17,7 +17,6 @@ import {COLORS} from '../../../constant';
 const WildLifeDetailsScreen = ({navigation, route}) => {
   const {item} = route.params;
   const {description, imageUrl, woundedAnimal, latitude, longitude} = item;
-  console.log('item location', item);
   const arr = [1, 2, 3];
   const text = description;
   const [fadeIn] = useState(new Animated.Value(0));
@@ -42,7 +41,14 @@ const WildLifeDetailsScreen = ({navigation, route}) => {
   return (
     <Animated.View style={{...WildLifeStyles.container, opacity: fadeIn}}>
       <View style={WildLifeStyles.image_sec}>
-        <Header img={leftArrow} navigation={navigation} />
+        <View style={{position: 'absolute', zIndex: 1}}>
+          <Header
+            bgClr={COLORS.white}
+            img={leftArrow}
+            navigation={navigation}
+          />
+        </View>
+        {/* <Header img={leftArrow} navigation={navigation} /> */}
         <View style={WildLifeStyles.img_con}>
           <Image style={WildLifeStyles.dic_img} source={{uri: imageUrl}} />
         </View>

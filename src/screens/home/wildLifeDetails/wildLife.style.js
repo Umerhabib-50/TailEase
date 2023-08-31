@@ -7,13 +7,12 @@ export const WildLifeStyles = StyleSheet.create({
     // backgroundColor: COLORS.linearPurple,
   },
   image_sec: {
-    flex: 0.35,
+    flex: 0.4,
   },
   img_con: {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    height: '76%',
   },
   dic_img: {
     width: '100%',
@@ -23,7 +22,7 @@ export const WildLifeStyles = StyleSheet.create({
 
   white_sec_con: {
     backgroundColor: 'white',
-    flex: 0.65,
+    flex: 0.6,
     // borderTopLeftRadius: 30,
     // borderTopRightRadius: 30,
     paddingHorizontal: 20,

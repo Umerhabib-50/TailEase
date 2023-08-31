@@ -1,9 +1,7 @@
 import React from 'react';
 import {TouchableOpacity, View, Image} from 'react-native';
-import {Text} from 'react-native-paper';
-import {COLORS} from '../../constant';
 
-export const Header = ({img, navigation}) => {
+export const Header = ({img, navigation, bgClr}) => {
   return (
     <View
       style={{
@@ -11,14 +9,13 @@ export const Header = ({img, navigation}) => {
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        // backgroundColor: COLORS.lightPurple,
         padding: 15,
       }}>
       <View
         style={{
           width: 30,
           height: 30,
-          backgroundColor: COLORS.linearPurple,
+          backgroundColor: bgClr,
           borderRadius: 5,
           display: 'flex',
           justifyContent: 'center',

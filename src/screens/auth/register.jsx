@@ -14,7 +14,7 @@ import authStyles from '../../components/auth/auth-styles';
 import {useIsFocused} from '@react-navigation/native';
 const RegisterScreen = ({navigation}) => {
   const isFocused = useIsFocused();
-  const translateY = useRef(new Animated.Value(-100)).current;
+  const translateY = useRef(new Animated.Value(-20)).current;
   const {
     control,
     handleSubmit,
@@ -23,7 +23,7 @@ const RegisterScreen = ({navigation}) => {
   } = useForm();
   const dispatch = useDispatch();
   const {loading, error} = useSelector(state => state?.userRegister);
-  const translateX = useRef(new Animated.Value(100)).current;
+
   const onSubmit = data => {
     dispatch(userRegisterAction(data, navigation));
   };
@@ -39,7 +39,7 @@ const RegisterScreen = ({navigation}) => {
       }).start();
     } else {
       Animated.spring(translateY, {
-        toValue: -100, // or the initial value
+        toValue: -20, // or the initial value
         duration: 0, // no need to animate, reset immediately
         useNativeDriver: true,
       }).start();

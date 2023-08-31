@@ -3,11 +3,9 @@ import {
   Image,
   View,
   TouchableOpacity,
-  Dimensions,
   StyleSheet,
   Modal,
   Animated,
-  Button,
   PermissionsAndroid,
 } from 'react-native';
 import {CustomButton, CustomInput, Text} from '../../../components';
@@ -19,7 +17,7 @@ import {COLORS, ImagesPath} from '../../../constant';
 import {postData} from '../../../json';
 import {useIsFocused} from '@react-navigation/native';
 import Geolocation from 'react-native-geolocation-service';
-const windowWidth = Dimensions.get('window').width;
+
 const ReportAnimalsScreen = ({navigation}) => {
   const userId = useSelector(state => state?.userLogin?.userLogin?.user?.id);
   const woundedAnimal = useSelector(state => state?.woundedAnimal);
@@ -29,6 +27,7 @@ const ReportAnimalsScreen = ({navigation}) => {
   const [pic, setPic] = useState('');
   const isFocused = useIsFocused();
   const [modalVisible, setModalVisible] = useState(true);
+
   const {
     control,
     handleSubmit,
@@ -83,14 +82,16 @@ const ReportAnimalsScreen = ({navigation}) => {
       );
       if (granted === PermissionsAndroid.RESULTS.GRANTED) {
         console.log('Location permission granted');
-        getCurrentLocation(); // Call the function to get location
+        getCurrentLocation();
       } else {
         console.log('Location permission denied');
-        setLatitude(31.522781477385738);
-        setLongitude(74.34742859707012);
+        setLatitude(31.519346);
+        setLongitude(74.409302);
       }
     } catch (error) {
-      console.warn('Error requesting location permission:', error);
+      console.log('Error requesting location permission:', error);
+      setLatitude(31.519346);
+      setLongitude(74.409302);
     }
   };
 
@@ -102,7 +103,9 @@ const ReportAnimalsScreen = ({navigation}) => {
         setLongitude(longitude);
       },
       error => {
-        console.error('Error getting location:', error);
+        console.log('Error getting location:', error);
+        setLatitude(31.519346);
+        setLongitude(74.409302);
       },
       {enableHighAccuracy: true, timeout: 15000, maximumAge: 10000},
     );
@@ -111,18 +114,10 @@ const ReportAnimalsScreen = ({navigation}) => {
     // getCurrentLocation();
     checkAndRequestLocationPermission();
   }, []);
-  useEffect(() => {
-    const unsubscribe = navigation.addListener('focus', () => {
-      setModalVisible(true);
-      setPic('');
-      reset();
-    });
-    return () => {
-      unsubscribe();
-    };
-  }, [navigation]);
+
   useEffect(() => {
     if (isFocused) {
+      setModalVisible(true);
       Animated.timing(translateXCard1, {
         toValue: 0,
         duration: 500,
@@ -144,6 +139,9 @@ const ReportAnimalsScreen = ({navigation}) => {
         duration: 500,
         useNativeDriver: true,
       }).start();
+
+      setPic('');
+      reset();
     }
   }, [isFocused]);
   return (

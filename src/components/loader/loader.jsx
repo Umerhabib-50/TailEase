@@ -5,7 +5,7 @@ import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 export const CustomLoader = () => {
   return (
     <SkeletonPlaceholder>
-      {[1, 2, 3].map((value, ind) => {
+      {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((value, ind) => {
         return (
           <View
             key={ind}
