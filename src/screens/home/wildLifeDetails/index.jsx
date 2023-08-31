@@ -15,7 +15,8 @@ import {COLORS} from '../../../constant';
 
 const WildLifeDetailsScreen = ({navigation, route}) => {
   const {item} = route.params;
-  const {description, imageUrl, woundedAnimal} = item;
+  const {description, imageUrl, woundedAnimal, latitude, longitude} = item;
+  console.log('item location', item);
   const arr = [1, 2, 3];
   const text = description;
   const [fadeIn] = useState(new Animated.Value(0));
@@ -25,8 +26,8 @@ const WildLifeDetailsScreen = ({navigation, route}) => {
     setIsExpanded(!isExpanded);
   };
   const markerCoordinate = {
-    latitude: 31.522781477385738,
-    longitude: 74.34742859707012,
+    latitude: latitude,
+    longitude: longitude,
   };
 
   useEffect(() => {
@@ -93,8 +94,8 @@ const WildLifeDetailsScreen = ({navigation, route}) => {
             // zoomEnabled={false}
             style={WildLifeStyles.map}
             initialRegion={{
-              latitude: 31.522781477385738,
-              longitude: 74.34742859707012,
+              latitude: latitude,
+              longitude: longitude,
               latitudeDelta: 0.005,
               longitudeDelta: 0.005,
             }}>

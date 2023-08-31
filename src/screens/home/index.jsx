@@ -1,8 +1,15 @@
 import React, {useEffect, useRef} from 'react';
 import {Text} from '../../components';
-import {View, ScrollView, Image, Animated} from 'react-native';
+import {
+  View,
+  ScrollView,
+  Image,
+  Animated,
+  TouchableOpacity,
+} from 'react-native';
 import LottieView from 'lottie-react-native';
 import {COLORS, ImagesPath} from '../../constant';
+import {useIsFocused} from '@react-navigation/native';
 
 const services = [
   {
@@ -29,6 +36,7 @@ const services = [
 
 const HomeScreen = ({navigation}) => {
   // const translateY = useRef(new Animated.Value(-100)).current;
+  const isFocused = useIsFocused();
   const arrtranslateY = useRef(new Animated.Value(-100)).current;
 
   useEffect(() => {
@@ -38,13 +46,22 @@ const HomeScreen = ({navigation}) => {
     //   damping: 15, // Adjust the damping of the spring
     //   useNativeDriver: true,
     // }).start();
-    Animated.spring(arrtranslateY, {
-      toValue: 0,
-      stiffness: 150, // Adjust the stiffness of the spring
-      damping: 15, // Adjust the damping of the spring
-      useNativeDriver: true,
-    }).start();
-  }, []);
+    if (isFocused) {
+      Animated.spring(arrtranslateY, {
+        toValue: 0,
+        stiffness: 150, // Adjust the stiffness of the spring
+        damping: 15, // Adjust the damping of the spring
+        useNativeDriver: true,
+      }).start();
+    } else {
+      Animated.spring(arrtranslateY, {
+        toValue: -100,
+        stiffness: 150, // Adjust the stiffness of the spring
+        damping: 15, // Adjust the damping of the spring
+        useNativeDriver: true,
+      }).start();
+    }
+  }, [isFocused]);
 
   return (
     <Animated.View
@@ -95,17 +112,26 @@ const HomeScreen = ({navigation}) => {
                   backgroundColor: bgColor,
                   width: '45%',
                   height: 160,
-                  marginVertical: 10,
-                  padding: 10,
                   borderRadius: 10,
-                  display: 'flex',
-                  justifyContent: 'space-around',
-                  alignItems: 'center',
+                  marginVertical: 10,
                   transform: [{translateY: arrtranslateY}],
                 }}>
-                <Image style={{height: 90, width: 90}} source={img} />
+                <TouchableOpacity
+                  onPress={() => {
+                    if (i == 0) {
+                      navigation.navigate('postScreen');
+                    }
+                  }}
+                  style={{
+                    height: 160,
+                    display: 'flex',
+                    justifyContent: 'space-around',
+                    alignItems: 'center',
+                  }}>
+                  <Image style={{height: 90, width: 90}} source={img} />
 
-                <Text>{service}</Text>
+                  <Text>{service}</Text>
+                </TouchableOpacity>
               </Animated.View>
             );
           })}
