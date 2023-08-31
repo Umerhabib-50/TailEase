@@ -5,6 +5,7 @@ import {
   ScrollView,
   TouchableOpacity,
   Animated,
+  Linking,
 } from 'react-native';
 import leftArrow from '../../../assets/left-arrow.png';
 import MapView from 'react-native-maps';
@@ -110,13 +111,13 @@ const WildLifeDetailsScreen = ({navigation, route}) => {
             <Text>MAP</Text>
           </View> */}
           <CustomButton
-            // onPress={() => {
-            //   const url = `https://www.google.com/maps/dir/?api=1&destination=${31.522781477385738},${74.34742859707012}`;
+            onPress={() => {
+              const url = `https://www.google.com/maps/dir/?api=1&destination=${latitude},${longitude}`;
 
-            //   Linking.openURL(url).catch(err =>
-            //     console.error('Error opening Google Maps:', err),
-            //   );
-            // }}
+              Linking.openURL(url).catch(err =>
+                console.error('Error opening Google Maps:', err),
+              );
+            }}
             style={{marginTop: 20}}
             title={'Go To Maps'}
           />
