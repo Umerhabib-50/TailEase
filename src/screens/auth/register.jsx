@@ -1,5 +1,5 @@
-import React, {useEffect} from 'react';
-import {ScrollView, View} from 'react-native';
+import React, {useEffect, useRef} from 'react';
+import {ScrollView, View, Animated} from 'react-native';
 // import {CustomButton, CustomInput, Text} from '../../components';
 import {TouchableRipple} from 'react-native-paper';
 // import {AuthStyle} from './authStyle.style';
@@ -11,7 +11,10 @@ import {userRegisterAction} from '../../redux';
 import {Image} from 'react-native';
 import {COLORS, ImagesPath} from '../../constant';
 import authStyles from '../../components/auth/auth-styles';
+import {useIsFocused} from '@react-navigation/native';
 const RegisterScreen = ({navigation}) => {
+  const isFocused = useIsFocused();
+  const translateY = useRef(new Animated.Value(-100)).current;
   const {
     control,
     handleSubmit,
@@ -24,13 +27,30 @@ const RegisterScreen = ({navigation}) => {
   const onSubmit = data => {
     dispatch(userRegisterAction(data, navigation));
   };
+
   useEffect(() => {
-    return () => {
-      reset();
-      console.log('register cleared');
+    if (isFocused) {
+      Animated.spring(translateY, {
+        toValue: 0,
+        damping: 30,
+        stiffness: 100,
+        duration: 500,
+        useNativeDriver: true,
+      }).start();
+    } else {
+      Animated.spring(translateY, {
+        toValue: -100, // or the initial value
+        duration: 0, // no need to animate, reset immediately
+        useNativeDriver: true,
+      }).start();
+      reset({
+        phoneNo: '',
+        password: '',
+        name: '',
+      });
       dispatch({type: 'CLEAR_ERROR'});
-    };
-  }, []);
+    }
+  }, [isFocused]);
   return (
     <>
       <View style={AuthStyle.imageParent}>
@@ -38,15 +58,15 @@ const RegisterScreen = ({navigation}) => {
         <Image source={ImagesPath.walkImage} style={AuthStyle.image} />
       </View>
 
-      <View style={AuthStyle.text}>
+      <Animated.View style={[AuthStyle.text, {transform: [{translateY}]}]}>
         <Text variant="displaySmall" fontWeight="bold" color={COLORS.white}>
           Welcome
         </Text>
         <Text variant="bodyLarge" color={COLORS.white}>
           Sign up to join
         </Text>
-      </View>
-      <ScrollView>
+      </Animated.View>
+      <Animated.ScrollView style={[{transform: [{translateY}]}]}>
         <View style={AuthStyle.container}>
           <View style={{paddingHorizontal: '7%'}}>
             {/* <Text variant="displaySmall" fontWeight="bold">
@@ -101,7 +121,7 @@ const RegisterScreen = ({navigation}) => {
             </TouchableRipple>
           </View>
         </View>
-      </ScrollView>
+      </Animated.ScrollView>
     </>
   );
 };

@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {
   StyleSheet,
   View,
@@ -6,6 +6,7 @@ import {
   useWindowDimensions,
   StatusBar,
   Modal,
+  Animated,
 } from 'react-native';
 import {Text} from '../../components';
 import {COLORS, ImagesPath} from '../../constant';
@@ -13,9 +14,25 @@ import {Button} from 'react-native-paper';
 import {useIsFocused} from '@react-navigation/native';
 
 const ReanimtaionScreen = ({navigation}) => {
+  const fade = useRef(new Animated.Value(0)).current;
   const isFocused = useIsFocused();
-
   const windowDimensions = useWindowDimensions();
+
+  useEffect(() => {
+    if (isFocused) {
+      Animated.timing(fade, {
+        toValue: 1,
+        duration: 1000,
+        useNativeDriver: true,
+      }).start();
+    } else {
+      Animated.timing(fade, {
+        toValue: 0, // or the initial value
+        duration: 0, // no need to animate, reset immediately
+        useNativeDriver: true,
+      }).start();
+    }
+  }, [isFocused]);
 
   return (
     <View style={styles.container}>
@@ -31,14 +48,14 @@ const ReanimtaionScreen = ({navigation}) => {
       <Modal transparent={true} visible={isFocused}>
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
-            <View style={styles.overlay}>
+            <Animated.View style={[styles.overlay, {opacity: fade}]}>
               <Text
                 style={styles.welcomeText}
                 variant="titleLarge"
                 color={COLORS.white}>
                 Welcome to the
               </Text>
-              <Text color={COLORS.white} variant="displayLarge">
+              <Text variant="displayLarge" color={COLORS.white}>
                 TailEase
               </Text>
               <Button
@@ -55,7 +72,7 @@ const ReanimtaionScreen = ({navigation}) => {
                 }}>
                 Let's go
               </Button>
-            </View>
+            </Animated.View>
           </View>
         </View>
       </Modal>

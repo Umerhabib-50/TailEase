@@ -1,5 +1,5 @@
-import React, {useEffect} from 'react';
-import {Image, ScrollView, StyleSheet, View} from 'react-native';
+import React, {useEffect, useRef, useState} from 'react';
+import {Animated, Image, ScrollView, StyleSheet, View} from 'react-native';
 import {TouchableRipple} from 'react-native-paper';
 import {useForm} from 'react-hook-form';
 import {useDispatch, useSelector} from 'react-redux';
@@ -7,31 +7,44 @@ import {AuthStyle} from './authStyle.style';
 import {CustomButton, CustomInput, Text} from '../../components';
 import {COLORS, ImagesPath} from '../../constant';
 import {userLoginAction} from '../../redux';
-import {useFocusEffect, useIsFocused} from '@react-navigation/native';
-
+import {useIsFocused} from '@react-navigation/native';
 const LoginScreen = ({navigation}) => {
-  // const isFocused = useIsFocused();
-  // console.log('isFocused', isFocused);
   const {
     control,
     handleSubmit,
     reset,
     formState: {errors},
   } = useForm();
-
   const dispatch = useDispatch();
+  const isFocused = useIsFocused();
   const {error, loading} = useSelector(state => state?.userLogin);
-
+  const translateX = useRef(new Animated.Value(100)).current;
   const loginSubmit = data => {
     dispatch(userLoginAction(data));
   };
 
   useEffect(() => {
-    return () => {
-      console.log('cleared');
-      reset();
-    };
-  }, []);
+    if (isFocused) {
+      Animated.spring(translateX, {
+        toValue: 0,
+        damping: 30,
+        stiffness: 100,
+        duration: 300,
+        useNativeDriver: true,
+      }).start();
+    } else {
+      Animated.spring(translateX, {
+        toValue: 100, // or the initial value
+        duration: 0, // no need to animate, reset immediately
+        useNativeDriver: true,
+      }).start();
+      reset({
+        phoneNo: '',
+        password: '',
+      });
+      dispatch({type: 'CLEAR_ERROR'});
+    }
+  }, [isFocused]);
 
   return (
     <>
@@ -40,15 +53,15 @@ const LoginScreen = ({navigation}) => {
         <Image source={ImagesPath.walkImage} style={AuthStyle.image} />
       </View>
 
-      <View style={AuthStyle.text}>
+      <Animated.View style={[{transform: [{translateX}]}, AuthStyle.text]}>
         <Text variant="displaySmall" fontWeight="bold" color={COLORS.white}>
           Welcome
         </Text>
         <Text variant="bodyLarge" color={COLORS.white}>
           Sign in to continue
         </Text>
-      </View>
-      <ScrollView>
+      </Animated.View>
+      <Animated.ScrollView style={{transform: [{translateX}]}}>
         <View style={AuthStyle.container}>
           <View style={{paddingHorizontal: '7%'}}>
             <CustomInput
@@ -88,7 +101,7 @@ const LoginScreen = ({navigation}) => {
             <Text color={COLORS.purple}>Forgot password?</Text>
           </View>
         </View>
-      </ScrollView>
+      </Animated.ScrollView>
     </>
   );
 };
