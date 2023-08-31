@@ -1,16 +1,12 @@
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
-import {
-  createNativeStackNavigator,
-  CardStyleInterpolators,
-} from '@react-navigation/native-stack';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {useSelector} from 'react-redux';
 import {AuthNavigator} from './authNavigator';
 import {TabNavigator} from './tabNavigator';
-import {StatusBar} from 'react-native';
+import {CardStyleInterpolators} from '@react-navigation/stack'; // Import CardStyleInterpolators
 
-// Define the RootStackNavigator outside of the component
 const RootStack = createNativeStackNavigator();
 
 const RootStackContainer = () => {
@@ -19,9 +15,10 @@ const RootStackContainer = () => {
 
   return (
     <RootStack.Navigator
+      name="root"
       screenOptions={{
         headerShown: false,
-        cardStyleInterpolator: CardStyleInterpolators?.forHorizontalIOS,
+        cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
       }}>
       {token ? (
         <RootStack.Screen name="mainStack" component={TabNavigator} />

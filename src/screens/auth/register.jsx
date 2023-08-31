@@ -23,7 +23,7 @@ const RegisterScreen = ({navigation}) => {
   } = useForm();
   const dispatch = useDispatch();
   const {loading, error} = useSelector(state => state?.userRegister);
-
+  const translateX = useRef(new Animated.Value(100)).current;
   const onSubmit = data => {
     dispatch(userRegisterAction(data, navigation));
   };
@@ -69,15 +69,6 @@ const RegisterScreen = ({navigation}) => {
       <Animated.ScrollView style={[{transform: [{translateY}]}]}>
         <View style={AuthStyle.container}>
           <View style={{paddingHorizontal: '7%'}}>
-            {/* <Text variant="displaySmall" fontWeight="bold">
-            Welcome
-          </Text>
-          <Text variant="displaySmall" fontWeight="bold">
-            user
-          </Text>
-          <Text variant="bodyLarge" style={{marginTop: '4%'}}>
-            Sign up to join
-          </Text> */}
             <CustomInput
               control={control}
               errors={errors}
@@ -110,7 +101,6 @@ const RegisterScreen = ({navigation}) => {
             />
           </View>
           <View style={AuthStyle.bottom}>
-            {/* <Text>Have an account?</Text> */}
             <TouchableRipple onPress={() => navigation.navigate('login')}>
               <Text
                 fontWeight="bold"
