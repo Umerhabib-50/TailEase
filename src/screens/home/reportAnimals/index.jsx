@@ -7,6 +7,8 @@ import {
   StyleSheet,
   Modal,
   Animated,
+  Button,
+  PermissionsAndroid,
 } from 'react-native';
 import {CustomButton, CustomInput, Text} from '../../../components';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
@@ -16,8 +18,8 @@ import {woundedAnimalAction} from '../../../redux';
 import {COLORS, ImagesPath} from '../../../constant';
 import {postData} from '../../../json';
 import {useIsFocused} from '@react-navigation/native';
+import Geolocation from 'react-native-geolocation-service';
 const windowWidth = Dimensions.get('window').width;
-
 const ReportAnimalsScreen = ({navigation}) => {
   const userId = useSelector(state => state?.userLogin?.userLogin?.user?.id);
   const woundedAnimal = useSelector(state => state?.woundedAnimal);
@@ -33,6 +35,8 @@ const ReportAnimalsScreen = ({navigation}) => {
     reset,
     formState: {errors},
   } = useForm();
+  const [latitude, setLatitude] = useState(null);
+  const [longitude, setLongitude] = useState(null);
   const onSubmit = data => {
     let formdata = new FormData();
     formdata.append('image', {
@@ -42,6 +46,8 @@ const ReportAnimalsScreen = ({navigation}) => {
     });
     formdata.append('woundedAnimal', 'dog');
     formdata.append('description', data.disc);
+    formdata.append('longitude', longitude);
+    formdata.append('latitude', latitude);
     dispatch(woundedAnimalAction(formdata, userId, navigation));
   };
 
@@ -63,6 +69,46 @@ const ReportAnimalsScreen = ({navigation}) => {
     } catch (error) {}
   };
 
+  const checkAndRequestLocationPermission = async () => {
+    try {
+      const granted = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+        {
+          title: 'Location Permission',
+          message: 'We need your location for...',
+          buttonNeutral: 'Ask Me Later',
+          buttonNegative: 'Cancel',
+          buttonPositive: 'OK',
+        },
+      );
+      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+        console.log('Location permission granted');
+        getCurrentLocation(); // Call the function to get location
+      } else {
+        console.log('Location permission denied');
+      }
+    } catch (error) {
+      console.warn('Error requesting location permission:', error);
+    }
+  };
+
+  const getCurrentLocation = () => {
+    Geolocation.getCurrentPosition(
+      position => {
+        const {latitude, longitude} = position.coords;
+        setLatitude(latitude);
+        setLongitude(longitude);
+      },
+      error => {
+        console.error('Error getting location:', error);
+      },
+      {enableHighAccuracy: true, timeout: 15000, maximumAge: 10000},
+    );
+  };
+  useEffect(() => {
+    getCurrentLocation();
+    checkAndRequestLocationPermission();
+  }, []);
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
       setModalVisible(true);
