@@ -20,10 +20,8 @@ import {woundedAnimalAction} from '../../../redux';
 const windowWidth = Dimensions.get('window').width;
 
 const ReportAnimalsScreen = ({navigation}) => {
-  const userId = useSelector(state => state?.userLogin?.userLogin?.User?._id);
-
-  const woundedAnimal = useSelector(state => state.woundedAnimal);
-  console.log('woundedAnimal', woundedAnimal);
+  const userId = useSelector(state => state?.userLogin?.userLogin?.user?.id);
+  const woundedAnimal = useSelector(state => state?.woundedAnimal);
 
   const dispatch = useDispatch();
   //   const [images, setImages] = useState([]);

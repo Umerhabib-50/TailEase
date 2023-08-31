@@ -1,10 +1,9 @@
-import React, {useEffect} from 'react';
-import {View, Alert} from 'react-native';
+import React, {useEffect, useRef} from 'react';
+import {View, Alert, Animated} from 'react-native';
 import {CustomButton, CustomInput, Text} from '../../components';
 import {useForm} from 'react-hook-form';
 import {useDispatch, useSelector} from 'react-redux';
 import {changePasswordAction} from '../../redux';
-
 const ChangePassword = ({navigation}) => {
   const {
     control,
@@ -45,6 +44,7 @@ const ChangePassword = ({navigation}) => {
       dispatch({type: 'CLEAR_ERROR'});
     };
   }, []);
+
   return (
     <View style={{flex: 1}}>
       <View
