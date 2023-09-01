@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {FlatList, View} from 'react-native';
+import {FlatList, View, Alert} from 'react-native';
 import {CustomCard, CustomLoader, Header, Text} from '../../../components';
 import useSWR from 'swr';
 import {SERVER_IP} from '../../../config';
@@ -14,7 +14,23 @@ const PostsScreen = ({navigation}) => {
     `${SERVER_IP}/WoundedAnimals/All`,
     fetcher,
   );
-
+  const showAlert = () => {
+    Alert.alert(
+      'Delete Post',
+      'Are you want to delete this post ',
+      [
+        {
+          text: 'CANCEL',
+          onPress: () => console.log('CANCEL PRESS'),
+        },
+        {
+          text: 'OK',
+          onPress: () => console.log('OK PRESS'),
+        },
+      ],
+      {cancelable: false},
+    );
+  };
   useEffect(() => {
     if (isFocused) {
       mutate();
@@ -40,6 +56,7 @@ const PostsScreen = ({navigation}) => {
               const name = item?.user?.name;
               return (
                 <CustomCard
+                  onLongPress={showAlert}
                   title={name}
                   imageUrl={imageUrl}
                   description={description}

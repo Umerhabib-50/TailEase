@@ -27,7 +27,7 @@ const ChangePassword = ({navigation}) => {
   };
   const showAlert = () => {
     Alert.alert(
-      'Change Pawword',
+      'Change Password',
       changePassword?.message,
       [
         {

@@ -5,11 +5,12 @@ import {
   CHANGE_PASSWORD_FAIL,
   CHANGE_PASSWORD_REQUEST,
   CHANGE_PASSWORD_SUCCESS,
+  DELETE_POST_REQUEST,
   WOUNDED_ANIMAL_FAIL,
   WOUNDED_ANIMAL_REQUEST,
   WOUNDED_ANIMAL_SUCCESS,
 } from '../constants';
-
+//CHANGE PASSWORD
 export const changePasswordAction =
   (changePasswordObj, navigation) => async dispatch => {
     try {
@@ -20,7 +21,6 @@ export const changePasswordAction =
         `${SERVER_IP}/user/change-password`,
         changePasswordObj,
       );
-      // navigation.navigate('homeScreen');
 
       dispatch({
         type: CHANGE_PASSWORD_SUCCESS,
@@ -33,7 +33,7 @@ export const changePasswordAction =
       });
     }
   };
-
+// SEND POST
 export const woundedAnimalAction =
   (animalData, id, navigation) => async dispatch => {
     try {
@@ -50,17 +50,24 @@ export const woundedAnimalAction =
         },
       );
       navigation.navigate('home');
-      // console.log('woundedAnimalAction', data);
-      // data?.message && navigation.navigate('homeStack', {screen: 'homeScreen'});
       dispatch({
         type: WOUNDED_ANIMAL_SUCCESS,
         payload: data,
       });
     } catch (error) {
-      // console.log('woundedAnimalAction', error);
       dispatch({
         type: WOUNDED_ANIMAL_FAIL,
         payload: error?.response && error?.response?.data,
       });
     }
   };
+//    DELETE POST
+
+export const deletePostAction = () => async dispatch => {
+  try {
+    dispatch({
+      type: DELETE_POST_REQUEST,
+    });
+    const {data} = await axios.delete(`${SERVER_IP}/`);
+  } catch (error) {}
+};

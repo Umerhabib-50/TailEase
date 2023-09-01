@@ -13,33 +13,21 @@ export const CustomCard = ({
   onCardPress,
   onNavigatePress,
   imageUrl,
+  onLongPress,
 }) => {
   return (
-    // <TouchableRipple onPress={onCardPress}>
-    //   <>
-    <Card style={CustomCardStyle.card} onPress={onCardPress}>
+    <Card
+      style={CustomCardStyle.card}
+      onPress={onCardPress}
+      onLongPress={onLongPress}>
       <View style={{flexDirection: 'row', alignItems: 'center'}}>
-        {/* <View style={CustomCardStyle.dcImage}> */}
-        <Image
-          source={{uri: imageUrl}}
-          style={CustomCardStyle.dcImage}
-          // style={{
-          //   width: 45,
-          //   height: 45,
-          //   borderTopRightRadius: 10,
-          //   borderTopLeftRadius: 10,
-          //   // marginBottom: 1z,
-          // }}
-        />
-        {/* </View> */}
+        <Image source={{uri: imageUrl}} style={CustomCardStyle.dcImage} />
 
         <View style={{marginLeft: 25, flex: 1}}>
           <Text variant="titleMedium" fontWeight="900">
             {title}
           </Text>
-          {/* <Text variant="bodyMedium" fontWeight="200">
-              {description.slice(0, 10)}
-            </Text> */}
+
           <View style={CustomCardStyle.midSection}>
             <Text fontWeight="900">$ 25</Text>
             <Text style={{marginLeft: '18%'}} fontWeight="900">
@@ -57,7 +45,5 @@ export const CustomCard = ({
         </View>
       </View>
     </Card>
-    //   </>
-    // </TouchableRipple>
   );
 };
