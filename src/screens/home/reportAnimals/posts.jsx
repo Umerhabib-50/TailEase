@@ -51,11 +51,12 @@ const PostsScreen = ({navigation}) => {
             data={data?.woundedAnimals}
             showsVerticalScrollIndicator={false}
             keyExtractor={(item, index) => index.toString()}
-            renderItem={({item}) => {
+            renderItem={({item, index}) => {
               const {description, imageUrl, woundedAnimal} = item;
               const name = item?.user?.name;
               return (
                 <CustomCard
+                  index={index}
                   onLongPress={showAlert}
                   title={name}
                   imageUrl={imageUrl}

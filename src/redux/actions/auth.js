@@ -40,6 +40,7 @@ export const userLoginAction = loginData => async dispatch => {
       type: USER_LOGIN_REQUEST,
     });
     const {data} = await axios.post(`${SERVER_IP}/user/login`, loginData);
+    console.log('userlogin dara', data);
     // data?.message && navigation.navigate('mainStack', {screen: 'home'});
     dispatch({
       type: USER_LOGIN_SUCCESS,

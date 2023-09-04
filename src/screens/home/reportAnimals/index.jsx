@@ -6,7 +6,6 @@ import {
   StyleSheet,
   Modal,
   Animated,
-  PermissionsAndroid,
 } from 'react-native';
 import {CustomButton, CustomInput, Text} from '../../../components';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
@@ -16,17 +15,25 @@ import {woundedAnimalAction} from '../../../redux';
 import {COLORS, ImagesPath} from '../../../constant';
 import {postData} from '../../../json';
 import {useIsFocused} from '@react-navigation/native';
-import Geolocation from 'react-native-geolocation-service';
+import {getPermissionAndLocation} from '../../../utils/location';
 
 const ReportAnimalsScreen = ({navigation}) => {
+  const isFocused = useIsFocused();
   const userId = useSelector(state => state?.userLogin?.userLogin?.user?.id);
   const woundedAnimal = useSelector(state => state?.woundedAnimal);
   const translateXCard1 = useRef(new Animated.Value(100)).current;
   const translateXCard2 = useRef(new Animated.Value(-100)).current;
   const dispatch = useDispatch();
+
   const [pic, setPic] = useState('');
-  const isFocused = useIsFocused();
   const [modalVisible, setModalVisible] = useState(true);
+  const [cordinates, setCordinates] = useState({
+    longitude: 74.3587,
+    latitude: 31.5204,
+    current: false,
+  });
+
+  console.log('cordinates', cordinates);
 
   const {
     control,
@@ -34,8 +41,7 @@ const ReportAnimalsScreen = ({navigation}) => {
     reset,
     formState: {errors},
   } = useForm();
-  const [latitude, setLatitude] = useState(null);
-  const [longitude, setLongitude] = useState(null);
+
   const onSubmit = data => {
     let formdata = new FormData();
     formdata.append('image', {
@@ -45,8 +51,8 @@ const ReportAnimalsScreen = ({navigation}) => {
     });
     formdata.append('woundedAnimal', 'dog');
     formdata.append('description', data.disc);
-    formdata.append('longitude', longitude);
-    formdata.append('latitude', latitude);
+    formdata.append('longitude', cordinates.longitude);
+    formdata.append('latitude', cordinates.latitude);
     dispatch(woundedAnimalAction(formdata, userId, navigation));
   };
 
@@ -68,95 +74,37 @@ const ReportAnimalsScreen = ({navigation}) => {
     } catch (error) {}
   };
 
-  const checkAndRequestLocationPermission = async () => {
-    try {
-      const granted = await PermissionsAndroid.request(
-        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-        {
-          title: 'Location Permission',
-          message: 'We need your location for...',
-          buttonNeutral: 'Ask Me Later',
-          buttonNegative: 'Cancel',
-          buttonPositive: 'OK',
-        },
-      );
-      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-        console.log('Location permission granted');
-        getCurrentLocation();
-      } else {
-        console.log('Location permission denied');
-        setLatitude(31.519346);
-        setLongitude(74.409302);
-      }
-    } catch (error) {
-      console.log('Error requesting location permission:', error);
-      setLatitude(31.519346);
-      setLongitude(74.409302);
-    }
+  const animateElement = (element, toValue, duration) => {
+    Animated.timing(element, {
+      toValue,
+      duration,
+      useNativeDriver: true,
+    }).start();
   };
-
-  const getCurrentLocation = () => {
-    Geolocation.getCurrentPosition(
-      position => {
-        const {latitude, longitude} = position.coords;
-        setLatitude(latitude);
-        setLongitude(longitude);
-      },
-      error => {
-        console.log('Error getting location:', error);
-        setLatitude(31.519346);
-        setLongitude(74.409302);
-      },
-      {enableHighAccuracy: true, timeout: 15000, maximumAge: 10000},
-    );
-  };
-  useEffect(() => {
-    // getCurrentLocation();
-    checkAndRequestLocationPermission();
-  }, []);
 
   useEffect(() => {
     if (isFocused) {
       setModalVisible(true);
-      Animated.timing(translateXCard1, {
-        toValue: 0,
-        duration: 500,
-        useNativeDriver: true,
-      }).start();
-      Animated.timing(translateXCard2, {
-        toValue: 0,
-        duration: 500,
-        useNativeDriver: true,
-      }).start();
+      animateElement(translateXCard1, 0, 500);
+      animateElement(translateXCard2, 0, 500);
+      (async () => {
+        const {latitude, longitude, current} = await getPermissionAndLocation();
+        setCordinates({latitude, longitude, current});
+      })();
     } else {
-      Animated.timing(translateXCard1, {
-        toValue: 100,
-        duration: 500,
-        useNativeDriver: true,
-      }).start();
-      Animated.timing(translateXCard2, {
-        toValue: -100,
-        duration: 500,
-        useNativeDriver: true,
-      }).start();
-
+      animateElement(translateXCard1, 100, 500);
+      animateElement(translateXCard2, -100, 500);
       setPic('');
       reset();
     }
   }, [isFocused]);
+
   return (
     <View style={styles.centeredView}>
       {pic && (
         <>
-          <View
-            style={{
-              width: '100%',
-              height: 300,
-            }}>
-            <Image
-              style={{height: '100%', width: '100%', objectFit: 'fill'}}
-              source={{uri: pic.assets[0].uri}}
-            />
+          <View style={styles.reportImg_con}>
+            <Image style={styles.reportImg} source={{uri: pic.assets[0].uri}} />
           </View>
 
           <View style={{width: '100%', marginTop: 10}}>
@@ -206,13 +154,7 @@ const ReportAnimalsScreen = ({navigation}) => {
           })}
 
           <TouchableOpacity
-            style={{
-              position: 'absolute',
-              top: '80%',
-              backgroundColor: COLORS.white,
-              padding: 16,
-              borderRadius: 50,
-            }}
+            style={styles.closeIcon}
             onPress={() => {
               setModalVisible(false);
               navigation.navigate('home');
@@ -266,6 +208,16 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
+  },
+  reportImg_con: {width: '100%', height: 300},
+  reportImg: {height: '100%', width: '100%', objectFit: 'fill'},
+
+  closeIcon: {
+    position: 'absolute',
+    top: '80%',
+    backgroundColor: COLORS.white,
+    padding: 16,
+    borderRadius: 50,
   },
 });
 
