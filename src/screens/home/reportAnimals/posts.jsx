@@ -4,7 +4,7 @@ import {CustomCard, CustomLoader, Header, Text} from '../../../components';
 import useSWR from 'swr';
 import {SERVER_IP} from '../../../config';
 import leftArrow from '../../../assets/left-arrow.png';
-import {COLORS} from '../../../constant';
+import {COLORS, ImagesPath} from '../../../constant';
 import {useIsFocused} from '@react-navigation/native';
 
 const PostsScreen = ({navigation}) => {

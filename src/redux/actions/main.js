@@ -63,11 +63,17 @@ export const woundedAnimalAction =
   };
 //    DELETE POST
 
-export const deletePostAction = () => async dispatch => {
+export const deletePostAction = (itemId, userId) => async dispatch => {
   try {
     dispatch({
       type: DELETE_POST_REQUEST,
     });
-    const {data} = await axios.delete(`${SERVER_IP}/`);
-  } catch (error) {}
+    const {data} = await axios.delete(
+      `${SERVER_IP}//WoundedAnimals/delete/${itemId}`,
+      userId,
+    );
+    console.log('data from data', data);
+  } catch (error) {
+    console.log('data from data', error);
+  }
 };

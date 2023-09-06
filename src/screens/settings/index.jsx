@@ -1,16 +1,32 @@
 import React from 'react';
-import {View, Image, Alert} from 'react-native';
+import {View, Image, Alert, FlatList} from 'react-native';
 import {ProfileStyle} from './profile.style';
-import {Text} from '../../components';
-import {ImagesPath} from '../../constant';
+import {Header, Text} from '../../components';
+import {COLORS, ImagesPath} from '../../constant';
 import {accout} from '../../json';
 import {TouchableRipple} from 'react-native-paper';
 import {useDispatch, useSelector} from 'react-redux';
 import {logOutAction} from '../../redux';
-
+import leftArrow from '../../assets/left-arrow.png';
+import useSWR from 'swr';
+import {SERVER_IP} from '../../config';
+let arr = [
+  {id: '1', image: ImagesPath.melatonin},
+  {id: '2', image: ImagesPath.melatonin},
+  {id: '3', image: ImagesPath.melatonin},
+  {id: '4', image: ImagesPath.melatonin},
+  {id: '5', image: ImagesPath.melatonin},
+  {id: '6', image: ImagesPath.melatonin},
+  {id: '7', image: ImagesPath.melatonin},
+];
 const UserProfileScreen = ({navigation}) => {
-  // const token = useSelector(state => state?.userLogin?.userLogin?.Token);
+  const userId = useSelector(state => state?.userLogin?.userLogin?.user?.id);
   const dispatch = useDispatch();
+  const fetcher = (...args) => fetch(...args).then(res => res.json());
+  const {data, mutate, error, isLoading} = useSWR(
+    `${SERVER_IP}/woundedAnimals/userPosts/${userId}`,
+    fetcher,
+  );
 
   const showAlert = () => {
     Alert.alert(
@@ -29,9 +45,62 @@ const UserProfileScreen = ({navigation}) => {
       {cancelable: false},
     );
   };
+  const renderItem = ({item}) => {
+    return (
+      <Image
+        source={{uri: item?.imageUrl}}
+        style={{
+          width: '33.33%',
+          aspectRatio: 1,
+          marginLeft: 2,
+        }}
+      />
+    );
+  };
   return (
     <View style={ProfileStyle.container}>
-      <Image
+      <Header
+        img={leftArrow}
+        navigation={navigation}
+        bgClr={COLORS.linearPurple}
+      />
+      <View
+        style={{
+          display: 'flex',
+          // justifyContent: 'space-between',
+          flexDirection: 'row',
+          height: '20%',
+          alignItems: 'center',
+          paddingHorizontal: 16,
+        }}>
+        <View>
+          <Image
+            source={ImagesPath.profileImg}
+            style={{
+              height: 80,
+              width: 80,
+              borderRadius: 50,
+            }}
+          />
+          <Text style={{marginTop: 5}}>Rehan khan</Text>
+        </View>
+        <TouchableRipple
+          style={{
+            marginLeft: '9%',
+            backgroundColor: COLORS.purple,
+            padding: 7,
+            borderRadius: 8,
+          }}>
+          <Text color={COLORS.white}>Edit Profile</Text>
+        </TouchableRipple>
+      </View>
+      <FlatList
+        data={data?.woundedAnimals}
+        renderItem={renderItem}
+        keyExtractor={item => item.id}
+        numColumns={3} // Display three items in each row
+      />
+      {/* <Image
         source={ImagesPath.profileImg}
         style={{
           height: '50%',
@@ -90,7 +159,7 @@ const UserProfileScreen = ({navigation}) => {
             );
           })}
         </View>
-      </View>
+      </View> */}
     </View>
   );
 };
