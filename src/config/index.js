@@ -3,5 +3,5 @@
 //   SERVER_IP: 'http://192.168.1.215:5000',
 // };
 
-// export const SERVER_IP = 'http://192.168.1.215:5000';
-export const SERVER_IP = 'http://d509-103-184-1-9.ngrok-free.app';
+export const SERVER_IP = 'http://192.168.1.215:5000';
+// export const SERVER_IP = 'http://a535-223-123-0-102.ngrok-free.app';

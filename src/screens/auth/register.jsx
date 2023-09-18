@@ -39,8 +39,8 @@ const RegisterScreen = ({navigation}) => {
       }).start();
     } else {
       Animated.spring(translateY, {
-        toValue: -20, // or the initial value
-        duration: 0, // no need to animate, reset immediately
+        toValue: -20,
+        duration: 0,
         useNativeDriver: true,
       }).start();
       reset({

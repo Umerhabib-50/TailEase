@@ -22,6 +22,7 @@ const walkImage = require('../assets/unsplash.jpg');
 const galleyImage = require('../assets/gallery.png');
 const cameraImage = require('../assets/camera.png');
 const post = require('../assets/post.png');
+const setting = require('../assets/setting.png');
 export const ImagesPath = {
   checkImage,
   homeImage,
@@ -47,4 +48,5 @@ export const ImagesPath = {
   galleyImage,
   cameraImage,
   post,
+  setting,
 };

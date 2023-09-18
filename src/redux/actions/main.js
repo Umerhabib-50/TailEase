@@ -5,23 +5,30 @@ import {
   CHANGE_PASSWORD_FAIL,
   CHANGE_PASSWORD_REQUEST,
   CHANGE_PASSWORD_SUCCESS,
+  DELETE_POST_FAIL,
   DELETE_POST_REQUEST,
+  DELETE_POST_SUCCESS,
   WOUNDED_ANIMAL_FAIL,
   WOUNDED_ANIMAL_REQUEST,
   WOUNDED_ANIMAL_SUCCESS,
 } from '../constants';
 //CHANGE PASSWORD
 export const changePasswordAction =
-  (changePasswordObj, navigation) => async dispatch => {
+  (changePasswordObj, navigation, reset) => async dispatch => {
     try {
       dispatch({
         type: CHANGE_PASSWORD_REQUEST,
       });
       const {data} = await axios.post(
-        `${SERVER_IP}/user/change-password`,
+        `${SERVER_IP}/user/changePassword`,
         changePasswordObj,
       );
-
+      console.log('data from change password', data);
+      reset({
+        currentPassword: '',
+        newPassword: '',
+      });
+      // navigation.navigate('home');
       dispatch({
         type: CHANGE_PASSWORD_SUCCESS,
         payload: data,
@@ -62,18 +69,28 @@ export const woundedAnimalAction =
     }
   };
 //    DELETE POST
-
-export const deletePostAction = (itemId, userId) => async dispatch => {
+export const deletePostAction = (id, itemId, mutate) => async dispatch => {
+  let obj = {
+    userId: id,
+  };
   try {
     dispatch({
       type: DELETE_POST_REQUEST,
     });
     const {data} = await axios.delete(
-      `${SERVER_IP}//WoundedAnimals/delete/${itemId}`,
-      userId,
+      `${SERVER_IP}/WoundedAnimals/delete/${itemId}`,
+      {data: obj},
     );
-    console.log('data from data', data);
+    mutate();
+    dispatch({
+      type: DELETE_POST_SUCCESS,
+      payload: data,
+    });
   } catch (error) {
     console.log('data from data', error);
+    dispatch({
+      type: DELETE_POST_FAIL,
+      payload: error?.response && error?.response?.data,
+    });
   }
 };

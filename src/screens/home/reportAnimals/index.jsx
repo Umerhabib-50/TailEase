@@ -16,7 +16,6 @@ import {COLORS, ImagesPath} from '../../../constant';
 import {postData} from '../../../json';
 import {useIsFocused} from '@react-navigation/native';
 import {getPermissionAndLocation} from '../../../utils/location';
-
 const ReportAnimalsScreen = ({navigation}) => {
   const isFocused = useIsFocused();
   const userId = useSelector(state => state?.userLogin?.userLogin?.user?.id);
@@ -24,7 +23,6 @@ const ReportAnimalsScreen = ({navigation}) => {
   const translateXCard1 = useRef(new Animated.Value(100)).current;
   const translateXCard2 = useRef(new Animated.Value(-100)).current;
   const dispatch = useDispatch();
-
   const [pic, setPic] = useState('');
   const [modalVisible, setModalVisible] = useState(true);
   const [cordinates, setCordinates] = useState({
@@ -32,9 +30,6 @@ const ReportAnimalsScreen = ({navigation}) => {
     latitude: 31.5204,
     current: false,
   });
-
-  console.log('cordinates', cordinates);
-
   const {
     control,
     handleSubmit,

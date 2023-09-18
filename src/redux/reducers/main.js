@@ -2,15 +2,15 @@ import {
   CHANGE_PASSWORD_FAIL,
   CHANGE_PASSWORD_REQUEST,
   CHANGE_PASSWORD_SUCCESS,
+  DELETE_POST_FAIL,
+  DELETE_POST_REQUEST,
+  DELETE_POST_SUCCESS,
   WOUNDED_ANIMAL_FAIL,
   WOUNDED_ANIMAL_REQUEST,
   WOUNDED_ANIMAL_SUCCESS,
 } from '../constants';
 
-export const changePasswordReducer = (
-  state = {name: 'changePasswordReducer'},
-  action,
-) => {
+export const changePasswordReducer = (state = {}, action) => {
   switch (action.type) {
     case CHANGE_PASSWORD_REQUEST:
       return {loading: true};
@@ -38,6 +38,23 @@ export const woundedAnimalReducer = (state = {}, action) => {
       return {loading: false, error: action.payload};
     // case 'CLEAR_ERROR':
     //   return {...state, error: ''};
+    default:
+      return state;
+  }
+};
+export const deletePostReducer = (state = {}, action) => {
+  switch (action.type) {
+    case DELETE_POST_REQUEST:
+      return {loading: true};
+    case DELETE_POST_SUCCESS:
+      return {
+        loading: false,
+        deletePost: {...action.payload, success: true},
+      };
+    case DELETE_POST_FAIL:
+      return {loading: false, error: action.payload};
+    case 'CLEAR_ERROR':
+      return {};
     default:
       return state;
   }

@@ -13,7 +13,8 @@ const ChangePassword = ({navigation}) => {
   } = useForm();
   // const {_id: userId} = GetUserId();
   const dispatch = useDispatch();
-  const userId = useSelector(state => state?.userLogin?.userLogin?.User?._id);
+  const userId = useSelector(state => state?.userLogin?.userLogin?.user?.id);
+
   const {error, loading, success, changePassword} = useSelector(
     state => state?.changePassword,
   );
@@ -22,8 +23,8 @@ const ChangePassword = ({navigation}) => {
       ...data,
       userId,
     };
-    dispatch(changePasswordAction(obj, navigation));
-    reset();
+
+    dispatch(changePasswordAction(obj, navigation, reset));
   };
   const showAlert = () => {
     Alert.alert(
@@ -40,7 +41,10 @@ const ChangePassword = ({navigation}) => {
   };
   useEffect(() => {
     return () => {
-      reset();
+      reset({
+        currentPassword: '',
+        newPassword: '',
+      });
       dispatch({type: 'CLEAR_ERROR'});
     };
   }, []);
@@ -88,7 +92,7 @@ const ChangePassword = ({navigation}) => {
           title={loading ? 'Loading...' : 'Change Password'}
           onPress={handleSubmit(changePasswordSubmit)}
         />
-        {success == true && showAlert()}
+        {success == true ? showAlert() : null}
       </View>
     </View>
   );

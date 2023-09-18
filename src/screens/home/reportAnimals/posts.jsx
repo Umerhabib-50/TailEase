@@ -14,23 +14,6 @@ const PostsScreen = ({navigation}) => {
     `${SERVER_IP}/WoundedAnimals/All`,
     fetcher,
   );
-  const showAlert = () => {
-    Alert.alert(
-      'Delete Post',
-      'Are you want to delete this post ',
-      [
-        {
-          text: 'CANCEL',
-          onPress: () => console.log('CANCEL PRESS'),
-        },
-        {
-          text: 'OK',
-          onPress: () => console.log('OK PRESS'),
-        },
-      ],
-      {cancelable: false},
-    );
-  };
   useEffect(() => {
     if (isFocused) {
       mutate();
@@ -57,7 +40,6 @@ const PostsScreen = ({navigation}) => {
               return (
                 <CustomCard
                   index={index}
-                  onLongPress={showAlert}
                   title={name}
                   imageUrl={imageUrl}
                   description={description}

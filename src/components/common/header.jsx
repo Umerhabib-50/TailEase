@@ -1,7 +1,8 @@
 import React from 'react';
 import {TouchableOpacity, View, Image} from 'react-native';
+import {ImagesPath} from '../../constant';
 
-export const Header = ({img, navigation, bgClr}) => {
+export const Header = ({img, navigation, bgClr, setting, onPress}) => {
   return (
     <View
       style={{
@@ -28,6 +29,11 @@ export const Header = ({img, navigation, bgClr}) => {
           <Image style={{width: 16, height: 16}} source={img} />
         </TouchableOpacity>
       </View>
+      {setting && (
+        <TouchableOpacity onPress={onPress}>
+          <Image style={{width: 25, height: 25}} source={ImagesPath.setting} />
+        </TouchableOpacity>
+      )}
     </View>
   );
 };
